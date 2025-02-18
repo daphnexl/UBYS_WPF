@@ -1,0 +1,65 @@
+﻿<Window x:Class="UBYS_WPF.MVVM.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UBYS_WPF.MVVM.Views"
+        mc:Ignorable="d"
+        Title="MainView"
+        Height="450"
+        Width="800"
+        Background="#1E4444">
+
+    <Grid>
+
+        <Border Background="#2C2C3A"
+                Height="80"
+                VerticalAlignment="Top">
+            <TextBlock Text="University Information Management System"
+                       Foreground="White"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+        </Border>
+
+
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="320">
+
+
+            <TextBox x:Name="UsernameTextBox"
+                     Width="300"
+                     Height="40"
+                     Foreground="Gray"
+                     Background="#2C2C3A"
+                     BorderBrush="#4A4A5E"
+                     BorderThickness="1"
+                     Text="ID: XXXXXXXXXXX "
+                     Margin="0,10,0,10"
+                     Padding="10" />
+
+
+            <PasswordBox x:Name="PasswordBox"
+                         Width="300"
+                         Height="40"
+                         Foreground="Gray"
+                         Background="#2C2C3A"
+                         BorderBrush="#4A4A5E"
+                         BorderThickness="1"
+                         Margin="0,0,0,10"
+                         Padding="10" />
+
+
+            <Button Content="Log In"
+                    Height="45"
+                    Width="300"
+                    Background="#0078D4"
+                    Foreground="White"
+                    BorderThickness="0"
+                    FontSize="16"
+                    Cursor="Hand" />
+        </StackPanel>
+    </Grid>
+</Window>
