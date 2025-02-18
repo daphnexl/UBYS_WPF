@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <Folder Include="MVVM\Models\" />
-    <Folder Include="Cores\" />
+    <Folder Include="Assets\" />
   </ItemGroup>
 
 </Project>

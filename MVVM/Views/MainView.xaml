@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UBYS_WPF.MVVM.Views"
+        xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:MainVM}"
         mc:Ignorable="d"
         Title="MainView"
         Height="450"
         Width="800"
         Background="#1E4444">
-
     <Grid>
 
         <Border Background="#2C2C3A"
@@ -36,7 +37,7 @@
                      Background="#2C2C3A"
                      BorderBrush="#4A4A5E"
                      BorderThickness="1"
-                     Text="ID: XXXXXXXXXXX "
+                     Text="{Binding Data}"
                      Margin="0,10,0,10"
                      Padding="10" />
 

@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
+                    xmlns:view="clr-namespace:UBYS_WPF.MVVM.Views">
+    
+    <DataTemplate DataType="{x:Type vm:MainVM}">
+        <view:MainView />
+    </DataTemplate>
+    
+</ResourceDictionary>
