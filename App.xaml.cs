@@ -17,13 +17,13 @@ namespace UBYS_WPF
             var mainVM = new MainVM();
 
             // View oluştur ve DataContext olarak ViewModel'i bağla
-            var mainView = new MainView
+            var mainWindow = new MainWindow
             {
                 DataContext = mainVM
             };
 
             // Pencereyi göster
-            mainView.Show();
+            mainWindow.Show();
 
             base.OnStartup(e);
         }
