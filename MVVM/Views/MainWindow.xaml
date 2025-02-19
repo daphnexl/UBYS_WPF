@@ -28,7 +28,7 @@
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Width="320"
-                    Margin="0,171,0,0">
+                    Margin="0,151,0,0">
             <TextBox Text="{Binding Use, UpdateSourceTrigger=PropertyChanged}"
                      Width="300"
                      Height="40"
