@@ -7,6 +7,8 @@ using System.Windows.Media;
 using System.Windows;
 using UBYS_WPF.Cores;
 using System.Windows.Input;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
@@ -112,5 +114,7 @@ namespace UBYS_WPF.MVVM.ViewModels
                 PasswordTextColor = Brushes.Gray;
             }
         }
+        
+        }
     }
-}
+

@@ -23,5 +23,10 @@ namespace UBYS_WPF.MVVM.Views
         {
             InitializeComponent();
         }
+
+        private void TogglePasswordVisibility_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

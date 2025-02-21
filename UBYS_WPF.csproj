@@ -9,12 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Eye.ico" />
+    <None Remove="Assets\Invisible.ico" />
+    <None Remove="MVVM\Views\Eye.png" />
+    <None Remove="MVVM\Views\Invisible.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MVVM\Models\" />
-    <Folder Include="Assets\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Eye.ico" />
+    <Resource Include="Assets\Invisible.ico" />
+    <Resource Include="MVVM\Views\Eye.png" />
+    <Resource Include="MVVM\Views\Invisible.png" />
   </ItemGroup>
 
 </Project>

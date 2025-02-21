@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
         d:DataContext="{d:DesignInstance Type=vm:MainVM}"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Login"
         Height="450"
         Width="800"
         WindowStartupLocation="CenterScreen"
@@ -27,10 +27,11 @@
 
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Center"
-                    Width="320"
-                    Margin="0,151,0,0">
+                    Width="404"
+                    Margin="0,151,0,0"
+                    Height="208">
             <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                     Width="300"
+                     Width="321"
                      Height="40"
                      Foreground="{Binding UsernameTextColor}"
                      Background="#2C2C3A"
@@ -47,26 +48,45 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
+            <Grid x:Name="pGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="327" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="PasswordBox"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                         Foreground="{Binding PasswordTextColor}"
+                         Background="#2C2C3A"
+                         BorderBrush="#4A4A5E"
+                         BorderThickness="1"
+                         Margin="42,10,-27,10"
+                         Padding="10"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                       >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding PasswordGotFocusCommand}" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction Command="{Binding PasswordLostFocusCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Button x:Name="TogglePasswordButton"
+                        Margin="0,20,-12,20"
+                        Click="TogglePasswordVisibility_Click"
+                        RenderTransformOrigin="0.5,0.5"
+                        Grid.Column="1">
+                    <Image x:Name="PasswordToggleImage"
+                           Source="/MVVM/Views/Invisible.png"
+                           Width="18"
+                           Height="20"
+                           RenderTransformOrigin="9.015,-1.573"
+                            />
+                </Button>
+            </Grid>
 
-            <TextBox x:Name="PasswordBox"
-                     Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                     Width="300"
-                     Height="40"
-                     Foreground="{Binding PasswordTextColor}"
-                     Background="#2C2C3A"
-                     BorderBrush="#4A4A5E"
-                     BorderThickness="1"
-                     Margin="0,0,0,10"
-                     Padding="10">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="GotFocus">
-                        <i:InvokeCommandAction Command="{Binding PasswordGotFocusCommand}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="LostFocus">
-                        <i:InvokeCommandAction Command="{Binding PasswordLostFocusCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
             <!-- Forgot Password -->
             <Button Content="Forgot your password?"
                     Background="Transparent"
@@ -74,8 +94,8 @@
                     BorderThickness="0"
                     FontSize="14"
                     Cursor="Hand"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,0,10">
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Right">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <TextBlock Text="Forgot your password?"
@@ -94,6 +114,8 @@
                     BorderThickness="0"
                     FontSize="16"
                     Cursor="Hand" />
+
+
         </StackPanel>
     </Grid>
 </Window>
