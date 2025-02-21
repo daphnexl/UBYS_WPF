@@ -4,7 +4,7 @@
                     xmlns:view="clr-namespace:UBYS_WPF.MVVM.Views">
     
     <DataTemplate DataType="{x:Type vm:MainVM}">
-        <view:MainView />
+        <view:MainWindow />
     </DataTemplate>
     
     

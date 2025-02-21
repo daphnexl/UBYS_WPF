@@ -44,6 +44,13 @@ namespace UBYS_WPF.MVVM.ViewModels
 
             UsernameGotFocusCommand = new RelayCommand(_ => OnUsernameFocus());
             UsernameLostFocusCommand = new RelayCommand(_ => OnUsernameLostFocus());
+
+
+            Password = _defaultTextPassword;
+            PasswordTextColor = Brushes.Gray;
+
+            PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
+            PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
         }
         public void OnUsernameFocus()
         {
@@ -60,6 +67,49 @@ namespace UBYS_WPF.MVVM.ViewModels
             {
                 Username = _defaultText;
                 UsernameTextColor = Brushes.Gray;
+            }
+        }
+    
+    private string _password;
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+            }
+        }
+        private Brush _passwordTextColor;
+        public Brush PasswordTextColor
+        {
+            get => _passwordTextColor;
+            set
+            {
+                _passwordTextColor = value;
+                OnPropertyChanged(nameof(UsernameTextColor));
+            }
+        }
+        private readonly string _defaultTextPassword = "Password: ";
+
+        public ICommand PasswordGotFocusCommand { get; }
+        public ICommand PasswordLostFocusCommand { get; }
+       
+        public void OnPasswordFocus()
+        {
+            if (Password == _defaultTextPassword)
+            {
+                Password = "";
+                PasswordTextColor = Brushes.White;
+            }
+        }
+
+        public void OnPasswordLostFocus()
+        {
+            if (string.IsNullOrWhiteSpace(Password))
+            {
+                Password = _defaultTextPassword;
+                PasswordTextColor = Brushes.Gray;
             }
         }
     }
