@@ -9,6 +9,7 @@ using UBYS_WPF.Cores;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Windows.Media.Audio;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
@@ -16,6 +17,28 @@ namespace UBYS_WPF.MVVM.ViewModels
     {
 
         private string _username;
+        private string _password;
+
+        private Brush _usernameTextColor;
+        private Brush _passwordTextColor;
+
+        private readonly string _defaultText = "ID Number: XXXXXXXXXXX";
+        private readonly string _defaultTextPassword = "Password: ";
+        private string _toggleButtonIcon = "/Assets/Invisible.png";
+
+        private bool _isPasswordVisible;
+
+        public ICommand PasswordGotFocusCommand { get; }
+        public ICommand PasswordLostFocusCommand { get; }
+        public ICommand UsernameGotFocusCommand { get; }
+        public ICommand UsernameLostFocusCommand { get; }
+        public ICommand ForgotPasswordCommand { get; }
+        public ICommand TogglePasswordCommand { get; }
+
+
+        public Visibility PasswordBoxVisibility => IsPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility TextBoxVisibility => IsPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
+
         public string Username
         {
             get => _username;
@@ -25,7 +48,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(Username));
             }
         }
-        private Brush _usernameTextColor;
         public Brush UsernameTextColor
         {
             get => _usernameTextColor;
@@ -35,27 +57,34 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(UsernameTextColor));
             }
         }
-        private readonly string _defaultText = "ID Number: XXXXXXXXXXX";
 
-        public ICommand UsernameGotFocusCommand { get; }
-        public ICommand UsernameLostFocusCommand { get; }
         public MainVM()
         {
-            Username = _defaultText;
-            UsernameTextColor = Brushes.Gray;
+            // Username
+            _username = Username = _defaultText;
+            _usernameTextColor = UsernameTextColor = Brushes.Gray;
 
             UsernameGotFocusCommand = new RelayCommand(_ => OnUsernameFocus());
             UsernameLostFocusCommand = new RelayCommand(_ => OnUsernameLostFocus());
 
-
-            Password = _defaultTextPassword;
-            PasswordTextColor = Brushes.Gray;
+            // Password
+            _password = Password = _defaultTextPassword;
+            _passwordTextColor = PasswordTextColor = Brushes.Gray;
 
             PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
             PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
-
             TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
+            ForgotPasswordCommand = new RelayCommand(_ => ShowForgotPasswordMessage());
         }
+
+        public void ShowForgotPasswordMessage()
+        {
+            MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
+                            "Bilgilendirme",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+        }
+
         public void OnUsernameFocus()
         {
             if (Username == _defaultText)
@@ -73,8 +102,7 @@ namespace UBYS_WPF.MVVM.ViewModels
                 UsernameTextColor = Brushes.Gray;
             }
         }
-    
-    private string _password;
+
         public string Password
         {
             get => _password;
@@ -84,20 +112,16 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(Password));
             }
         }
-        private Brush _passwordTextColor;
+
         public Brush PasswordTextColor
         {
             get => _passwordTextColor;
             set
             {
                 _passwordTextColor = value;
-                OnPropertyChanged(nameof(UsernameTextColor));
+                OnPropertyChanged(nameof(PasswordTextColor));
             }
         }
-        private readonly string _defaultTextPassword = "Password: ";
-
-        public ICommand PasswordGotFocusCommand { get; }
-        public ICommand PasswordLostFocusCommand { get; }
        
         public void OnPasswordFocus()
         {
@@ -116,7 +140,7 @@ namespace UBYS_WPF.MVVM.ViewModels
                 PasswordTextColor = Brushes.Gray;
             }
         }
-        private bool _isPasswordVisible;
+
         public bool IsPasswordVisible
         {
             get => _isPasswordVisible;
@@ -128,10 +152,7 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(TextBoxVisibility));
             }
         }
-        public Visibility PasswordBoxVisibility => IsPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
-        public Visibility TextBoxVisibility => IsPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
 
-        private string _toggleButtonIcon = "/Assets/Invisible.png";
         public string ToggleButtonIcon
         {
             get => _toggleButtonIcon;
@@ -141,7 +162,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(ToggleButtonIcon));
             }
         }
-        public ICommand TogglePasswordCommand { get; }
 
         private void TogglePasswordVisibility()
         {
@@ -150,7 +170,5 @@ namespace UBYS_WPF.MVVM.ViewModels
         }
        
     }
-
-
-    }
+}
 

@@ -97,14 +97,13 @@
                              Padding="10"
                              Width="322"
                              Visibility="{Binding PasswordBoxVisibility}"
-                             Grid.Column="0" 
+                             Grid.Column="0"
                              Grid.ColumnSpan="2"
-                             HorizontalAlignment="Left"/>
+                             HorizontalAlignment="Left" />
 
                 <Button x:Name="TogglePasswordButton"
                         Margin="0,20,-12,20"
                         Command="{Binding TogglePasswordCommand}"
-                      
                         Grid.Column="1">
 
                     <Image x:Name="PasswordToggleImage"
@@ -125,8 +124,12 @@
                         BorderThickness="0"
                         FontSize="14"
                         Cursor="Hand"
-                        Margin="0,0,51,10"
-                        HorizontalAlignment="Right">
+                        Command="{Binding ForgotPasswordCommand}"
+                        Margin="0,0,51,0"
+                        HorizontalAlignment="Right"
+                        Click="Button_Click"
+                        Height="20"
+                        VerticalAlignment="Top">
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">

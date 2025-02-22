@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using UBYS_WPF.MVVM.ViewModels;
 
 namespace UBYS_WPF.MVVM.Views
 {
@@ -22,9 +23,12 @@ namespace UBYS_WPF.MVVM.Views
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainVM();
         }
 
-     
-    
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
