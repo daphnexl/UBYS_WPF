@@ -53,6 +53,8 @@ namespace UBYS_WPF.MVVM.ViewModels
 
             PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
             PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
+
+            TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
         }
         public void OnUsernameFocus()
         {
@@ -114,7 +116,41 @@ namespace UBYS_WPF.MVVM.ViewModels
                 PasswordTextColor = Brushes.Gray;
             }
         }
-        
+        private bool _isPasswordVisible;
+        public bool IsPasswordVisible
+        {
+            get => _isPasswordVisible;
+            set
+            {
+                _isPasswordVisible = value;
+                OnPropertyChanged(nameof(IsPasswordVisible));
+                OnPropertyChanged(nameof(PasswordBoxVisibility)); 
+                OnPropertyChanged(nameof(TextBoxVisibility));
+            }
         }
+        public Visibility PasswordBoxVisibility => IsPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility TextBoxVisibility => IsPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
+
+        private string _toggleButtonIcon = "/Assets/Invisible.png";
+        public string ToggleButtonIcon
+        {
+            get => _toggleButtonIcon;
+            set
+            {
+                _toggleButtonIcon = value;
+                OnPropertyChanged(nameof(ToggleButtonIcon));
+            }
+        }
+        public ICommand TogglePasswordCommand { get; }
+
+        private void TogglePasswordVisibility()
+        {
+            IsPasswordVisible = !IsPasswordVisible;
+            ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
+        }
+       
+    }
+
+
     }
 
