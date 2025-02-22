@@ -10,7 +10,10 @@
 
   <ItemGroup>
     <None Remove="Assets\Eye.ico" />
+    <None Remove="Assets\Eye.png" />
     <None Remove="Assets\Invisible.ico" />
+    <None Remove="Assets\Invisible.png" />
+    <None Remove="Assets\User2.ico" />
     <None Remove="MVVM\Views\Eye.png" />
     <None Remove="MVVM\Views\Invisible.png" />
   </ItemGroup>
@@ -25,7 +28,10 @@
 
   <ItemGroup>
     <Resource Include="Assets\Eye.ico" />
+    <Resource Include="Assets\Eye.png" />
     <Resource Include="Assets\Invisible.ico" />
+    <Resource Include="Assets\Invisible.png" />
+    <Resource Include="Assets\User2.ico" />
     <Resource Include="MVVM\Views\Eye.png" />
     <Resource Include="MVVM\Views\Invisible.png" />
   </ItemGroup>

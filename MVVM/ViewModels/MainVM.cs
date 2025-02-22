@@ -39,7 +39,6 @@ namespace UBYS_WPF.MVVM.ViewModels
 
         public ICommand UsernameGotFocusCommand { get; }
         public ICommand UsernameLostFocusCommand { get; }
-        public ICommand ForgotPasswordCommand { get; }
         public MainVM()
         {
             Username = _defaultText;
@@ -55,14 +54,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
             PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
 
-            ForgotPasswordCommand = new RelayCommand(_ => ShowForgotPasswordMessage());
-        }
-        public void ShowForgotPasswordMessage()
-        {
-            MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
-                            "Bilgilendirme",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
+            TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
         }
         public void OnUsernameFocus()
         {
@@ -123,8 +115,42 @@ namespace UBYS_WPF.MVVM.ViewModels
                 Password = _defaultTextPassword;
                 PasswordTextColor = Brushes.Gray;
             }
-
         }
+        private bool _isPasswordVisible;
+        public bool IsPasswordVisible
+        {
+            get => _isPasswordVisible;
+            set
+            {
+                _isPasswordVisible = value;
+                OnPropertyChanged(nameof(IsPasswordVisible));
+                OnPropertyChanged(nameof(PasswordBoxVisibility)); 
+                OnPropertyChanged(nameof(TextBoxVisibility));
+            }
+        }
+        public Visibility PasswordBoxVisibility => IsPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility TextBoxVisibility => IsPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
+
+        private string _toggleButtonIcon = "/Assets/Invisible.png";
+        public string ToggleButtonIcon
+        {
+            get => _toggleButtonIcon;
+            set
+            {
+                _toggleButtonIcon = value;
+                OnPropertyChanged(nameof(ToggleButtonIcon));
+            }
+        }
+        public ICommand TogglePasswordCommand { get; }
+
+        private void TogglePasswordVisibility()
+        {
+            IsPasswordVisible = !IsPasswordVisible;
+            ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
+        }
+       
     }
-}
+
+
+    }
 
