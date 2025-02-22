@@ -94,8 +94,10 @@
                     BorderThickness="0"
                     FontSize="14"
                     Cursor="Hand"
+                    Command="{Binding ForgotPasswordCommand}"
                     Margin="0,0,0,10"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right"
+                    Click="Button_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <TextBlock Text="Forgot your password?"
