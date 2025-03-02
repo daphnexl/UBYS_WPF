@@ -10,15 +10,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UBYS_WPF.MVVM.Views
 {
     /// <summary>
-    /// TeacherView.xaml etkileşim mantığı
+    /// Interaction logic for TeacherView.xaml
     /// </summary>
-    public partial class TeacherView : Page
+    public partial class TeacherView : Window
     {
         public TeacherView()
         {

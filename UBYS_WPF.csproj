@@ -24,8 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="devexpress.wpf.core" Version="24.1.7" />
+    <PackageReference Include="devexpress.wpf.grid.core" Version="24.1.7" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
   </ItemGroup>
 
   <ItemGroup>

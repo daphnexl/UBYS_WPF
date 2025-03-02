@@ -10,14 +10,17 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Windows.Media.Audio;
+using UBYS_WPF.MVVM.Views;
+using System.ComponentModel;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
     public class MainVM : ViewModelBase
     {
-
+        public string KullaniciTipi { get; set; } // Kullanıcı tipini saklamak için
         private string _username;
         private string _password;
+     
 
         private Brush _usernameTextColor;
         private Brush _passwordTextColor;
@@ -34,6 +37,9 @@ namespace UBYS_WPF.MVVM.ViewModels
         public ICommand UsernameLostFocusCommand { get; }
         public ICommand ForgotPasswordCommand { get; }
         public ICommand TogglePasswordCommand { get; }
+       
+
+        public ICommand Login {  get; }
 
 
         public Visibility PasswordBoxVisibility => IsPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
@@ -75,6 +81,11 @@ namespace UBYS_WPF.MVVM.ViewModels
             PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
             TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
             ForgotPasswordCommand = new RelayCommand(_ => ShowForgotPasswordMessage());
+            
+
+
+
+            Login = new RelayCommand(ExecuteLogin);
         }
 
         public void ShowForgotPasswordMessage()
@@ -93,6 +104,36 @@ namespace UBYS_WPF.MVVM.ViewModels
                 UsernameTextColor = Brushes.White;
             }
         }
+        private void ExecuteLogin(object obj)
+        {
+            Window window = null;
+
+            if (Username == "admin" && Password == "1234")
+            {
+                window = new UBYS_WPF.MVVM.Views.AdminView(); // Eğer AdminView Window ise
+            }
+            else if (Username == "ogretmen" && Password == "1234")
+            {
+                window = new UBYS_WPF.MVVM.Views.TeacherView();
+            }
+            else if (Username == "ogrenci" && Password == "1234")
+            {
+                window = new UBYS_WPF.MVVM.Views.StudentView();
+            }
+            else
+            {
+                MessageBox.Show("Hatalı giriş!");
+                return;
+            }
+
+            if (window != null)
+            {
+                window.Show();
+                Application.Current.MainWindow.Close();
+            }
+        }
+    
+
 
         public void OnUsernameLostFocus()
         {
@@ -168,7 +209,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             IsPasswordVisible = !IsPasswordVisible;
             ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
         }
-       
+
     }
 }
 

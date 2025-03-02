@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UBYS_WPF.MVVM.Views
 {
     /// <summary>
-    /// StudentView.xaml etkileşim mantığı
+    /// Interaction logic for StudentView.xaml
     /// </summary>
-    public partial class StudentView : Page
+    public partial class StudentView : Window
     {
         public StudentView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

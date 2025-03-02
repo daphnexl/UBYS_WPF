@@ -43,6 +43,8 @@ namespace UBYS_WPF.Helpers
                 SetBoundPassword(passwordBox, passwordBox.Password);
             }
         }
-    }
+     
+        }
+    
 }
-
+    

@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UBYS_WPF.MVVM.Views
+namespace UBYS_WPF.Components
 {
     /// <summary>
-    /// Interaction logic for AdminView.xaml
+    /// Interaction logic for NavigationBar.xaml
     /// </summary>
-    public partial class AdminView : Window
+    public partial class NavigationBar : UserControl
     {
-        public AdminView()
+        public NavigationBar()
         {
             InitializeComponent();
         }

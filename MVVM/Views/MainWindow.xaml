@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:helpers="clr-namespace:UBYS_WPF.Helpers"
         xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
-        d:DataContext="{d:DesignInstance Type=vm:MainVM,IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance Type=vm:MainVM}"
         mc:Ignorable="d"
         Title="Login"
         Height="450"
@@ -88,7 +88,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
                 <PasswordBox x:Name="HiddenPasswordBox"
-                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
+                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay}"  
                              Foreground="White"
                              Background="#2C2C3A"
                              BorderBrush="#4A4A5E"
@@ -151,6 +151,7 @@
                         Foreground="White"
                         BorderThickness="0"
                         FontSize="16"
+                        Command="{Binding Login}"
                         Cursor="Hand"
                         Margin="58,-3,58,10" />
             </Grid>

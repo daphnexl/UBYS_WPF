@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UBYS_WPF.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for AdminView.xaml
+    /// Interaction logic for StudentMenu.xaml
     /// </summary>
-    public partial class AdminView : Window
+    public partial class StudentMenu : UserControl
     {
-        public AdminView()
+        public StudentMenu()
         {
             InitializeComponent();
         }
