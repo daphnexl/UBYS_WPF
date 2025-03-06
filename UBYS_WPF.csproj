@@ -24,11 +24,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="devexpress.wpf.core" Version="24.1.7" />
-    <PackageReference Include="devexpress.wpf.grid.core" Version="24.1.7" />
+    <PackageReference Include="DevExpress.Data" Version="24.2.5" />
+    <PackageReference Include="linq2db.SQLite" Version="5.4.1" />
+    <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="9.0.2" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.2" />
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="9.0.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
+    <PackageReference Include="SQLitePCLRaw.core" Version="2.1.10" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.2" />
+    <PackageReference Include="System.Formats.Asn1" Version="9.0.2" />
   </ItemGroup>
 
   <ItemGroup>

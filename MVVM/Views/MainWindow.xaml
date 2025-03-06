@@ -30,53 +30,41 @@
                        HorizontalAlignment="Center" />
         </Border>
 
-
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Width="416"
-                    Margin="0,151,0,0"
-                    Height="225">
-            <Grid x:Name="ıdGrid"
-                  Height="65"
+                    Margin="0,151,0,0">
+
+            <!-- Username Input -->
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                     Width="322"
+                     Height="45"
+                     Foreground="{Binding UsernameTextColor}"
+                     Background="#2C2C3A"
+                     BorderBrush="#4A4A5E"
+                     BorderThickness="1"
+                     Padding="10">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding UsernameGotFocusCommand}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding UsernameLostFocusCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
+
+            <!-- Password Input -->
+            <Grid Height="45"
                   Width="416">
-                <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
-                         Width="322"
-                         Height="45"
-                         Foreground="{Binding UsernameTextColor}"
-                         Background="#2C2C3A"
-                         BorderBrush="#4A4A5E"
-                         BorderThickness="1"
-                         Margin="0,10,0,10"
-                         Padding="10">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="GotFocus">
-                            <i:InvokeCommandAction Command="{Binding UsernameGotFocusCommand}" />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="LostFocus">
-                            <i:InvokeCommandAction Command="{Binding UsernameLostFocusCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </Grid>
-            <Grid x:Name="pGrid"
-                  Height="65"
-                  Width="416">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="327" />
-                    <ColumnDefinition Width="10" />
-                </Grid.ColumnDefinitions>
                 <TextBox x:Name="PasswordBox"
                          Text="{Binding Password, Mode=TwoWay}"
                          Foreground="{Binding PasswordTextColor}"
                          Background="#2C2C3A"
                          BorderBrush="#4A4A5E"
                          BorderThickness="1"
-                         Margin="47,10,-47,10"
                          Padding="10"
                          Visibility="{Binding TextBoxVisibility}"
-                         Grid.Column="0"
-                         Grid.ColumnSpan="2"
-                         HorizontalAlignment="Left"
                          Width="322">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="GotFocus">
@@ -87,77 +75,61 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
+
                 <PasswordBox x:Name="HiddenPasswordBox"
-                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay}"  
+                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
                              Foreground="White"
                              Background="#2C2C3A"
                              BorderBrush="#4A4A5E"
                              BorderThickness="1"
-                             Margin="47,10,-47,10"
                              Padding="10"
                              Width="322"
-                             Visibility="{Binding PasswordBoxVisibility}"
-                             Grid.Column="0"
-                             Grid.ColumnSpan="2"
-                             HorizontalAlignment="Left" />
+                             Visibility="{Binding PasswordBoxVisibility}" />
 
-                <Button x:Name="TogglePasswordButton"
-                        Margin="0,20,-12,20"
-                        Command="{Binding TogglePasswordCommand}"
-                        Grid.Column="1">
-
-                    <Image x:Name="PasswordToggleImage"
-                           Source="{Binding ToggleButtonIcon}"
+                <Button Command="{Binding TogglePasswordCommand}"
+                        Width="30"
+                        Height="30"
+                        HorizontalAlignment="Right">
+                    <Image Source="{Binding ToggleButtonIcon}"
                            Width="18"
-                           Height="20"
-                           RenderTransformOrigin="9.015,-1.573" />
+                           Height="20" />
                 </Button>
             </Grid>
 
             <!-- Forgot Password -->
-            <Grid x:Name="b2Grid"
-                  Height="30"
-                  Width="416">
-                <Button Content="Forgot your password?"
-                        Background="Transparent"
-                        Foreground="#0078D4"
-                        BorderThickness="0"
-                        FontSize="14"
-                        Cursor="Hand"
-                        Command="{Binding ForgotPasswordCommand}"
-                        Margin="0,0,51,0"
-                        HorizontalAlignment="Right"
-                        Click="Button_Click"
-                        Height="20"
-                        VerticalAlignment="Top">
+            <Button Content="Forgot your password?"
+                    Background="Transparent"
+                    Foreground="#0078D4"
+                    BorderThickness="0"
+                    FontSize="14"
+                    Cursor="Hand"
+                    Command="{Binding ForgotPasswordCommand}"
+                    HorizontalAlignment="Right"
+                    Margin="0, 4, 0, 0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="Forgot your password?"
+                                   Foreground="#0078D4"
+                                   TextDecorations="Underline"
+                                   Cursor="Hand" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <TextBlock Text="Forgot your password?"
-                                       Foreground="#0078D4"
-                                       TextDecorations="Underline"
-                                       Cursor="Hand" />
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </Grid>
-            <Grid x:Name="bGrid"
-                  Height="65"
-                  Width="416">
-                <Button Content="Log In"
-                        Width="300"
-                        Height="58"
-                        Background="#0078D4"
-                        Foreground="White"
-                        BorderThickness="0"
-                        FontSize="16"
-                        Command="{Binding Login}"
-                        Cursor="Hand"
-                        Margin="58,-3,58,10" />
-            </Grid>
-
+            <!-- Login Button -->
+            <Button Content="Log In"
+                    Width="300"
+                    Height="45"
+                    Background="#0078D4"
+                    Foreground="White"
+                    BorderThickness="0"
+                    FontSize="16"
+                    Command="{Binding LoginCommand}"
+                    Cursor="Hand"
+                    Margin="0,17,0,0"/>
         </StackPanel>
-        <Image Margin="368,100,368,270"
+
+        <Image Margin="368,96,368,274"
                Source="/Assets/User2.ico"
                Stretch="Fill" />
 

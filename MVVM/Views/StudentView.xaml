@@ -8,5 +8,72 @@
         Title="Student"
         Height="450"
         Width="800"
-        Background="AntiqueWhite">
+        Background="#1E1E2F">
+    <Grid>
+        <!-- Üst Bilgi (Ad, Soyad, Öğrenci No) -->
+        <Border Background="#2C2C3A"
+                Height="60"
+                VerticalAlignment="Top">
+            <TextBlock Text="Defne ÇİVRİLLİ 220401002"
+                       Foreground="White"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="363,0,0,0" />
+        </Border>
+
+        <!-- Sol Panel -->
+        <Border Background="#2C2C3A"
+                Width="200"
+                HorizontalAlignment="Left">
+            <StackPanel>
+                <Button Content="📅 Ders Programı"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Height="70"
+                        Cursor="Hand" />
+                <Button Content="✅ Ders Seçimi"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Height="70"
+                        Cursor="Hand" />
+                <Button Content="📖 Notlar"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Height="70"
+                        Cursor="Hand" />
+                <Button Content="✉️ Mesajlar"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Height="70"
+                        Cursor="Hand" />
+                <Button Content="📊 Anketler"
+                        Background="Transparent"
+                        Foreground="White"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Height="70"
+                        Cursor="Hand" />
+            </StackPanel>
+        </Border>
+
+        <!-- İçerik Alanı -->
+        <Grid Margin="210,70,10,10">
+            <TextBlock Text="Öğrenci Ana Sayfası"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
+        </Grid>
+    </Grid>
 </Window>
