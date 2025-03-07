@@ -1,19 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using UBYS_WPF.Cores;
+using UBYS_WPF.Helpers;
+using UBYS_WPF.MVVM.Models;
+using UBYS_WPF.MVVM.ViewModels;
+using UBYS_WPF.MVVM.Views;
+using UBYS_WPF.Services;
 
-namespace UBYS_WPF.Helpers
+namespace UBYS_WPF
 {
+    // Database Helper
     public static class DatabaseHelper
     {
-        // Veritabanı dosyasının yolu
+        private static User _loggedInUser = null;
         private static string connectionString = "Data Source=UBYS.db;Version=3;";
-        // Veritabanını oluştur
+
         public static void CreateDatabase()
         {
-            string dbPath = "UBYS.db"; // Veritabanı dosya adı
+            string dbPath = "UBYS.db";
             if (!File.Exists(dbPath))
             {
                 SQLiteConnection.CreateFile(dbPath);
@@ -23,9 +33,13 @@ namespace UBYS_WPF.Helpers
                     string createTableQuery = @"
                         CREATE TABLE Users (
                             ID INTEGER PRIMARY KEY AUTOINCREMENT, 
-                            Username TEXT NOT NULL, 
+                            FullName TEXT NOT NULL, 
+                            Email TEXT NOT NULL,
+                            Phone TEXT,
                             PasswordHash TEXT NOT NULL, 
-                            Role TEXT NOT NULL)";
+                            Role TEXT NOT NULL,
+                            BirthDate TEXT
+                        )";
                     using (var command = new SQLiteCommand(createTableQuery, connection))
                     {
                         command.ExecuteNonQuery();
@@ -34,7 +48,7 @@ namespace UBYS_WPF.Helpers
                 Console.WriteLine("Database created successfully.");
             }
         }
-        // Şifre hash'leme işlemi
+
         public static string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -43,53 +57,29 @@ namespace UBYS_WPF.Helpers
                 return Convert.ToBase64String(bytes);
             }
         }
-        // Kullanıcıları veritabanına ekle
+
         public static void SeedUsers()
         {
             using (SQLiteConnection con = new SQLiteConnection(connectionString))
             {
                 con.Open();
-                // Kullanıcı sayısını kontrol et
                 string checkQuery = "SELECT COUNT(*) FROM Users";
                 using (SQLiteCommand checkCmd = new SQLiteCommand(checkQuery, con))
                 {
                     int count = Convert.ToInt32(checkCmd.ExecuteScalar());
-                    if (count == 0) // Eğer hiç kullanıcı yoksa ekleyelim
+                    if (count == 0)
                     {
-                        // Kullanıcıları ekle
                         string insertQuery = @"
-                            INSERT INTO Users (Username, PasswordHash, Role) VALUES 
-                            ('admin', @adminPass, 'Admin'),
-                            ('teacher1', @teacher1Pass, 'Teacher'),
-                            ('teacher2', @teacher2Pass, 'Teacher'),
-                            ('student1', @student1Pass, 'Student'),
-                            ('student2', @student2Pass, 'Student'),
-                            ('student3', @student3Pass, 'Student'),
-                            ('student4', @student4Pass, 'Student'),
-                            ('student5', @student5Pass, 'Student'),
-                            ('student6', @student6Pass, 'Student'),
-                            ('student7', @student7Pass, 'Student'),
-                            ('student8', @student8Pass, 'Student'),
-                            ('student9', @student9Pass, 'Student'),
-                            ('student10', @student10Pass, 'Student')";
+                            INSERT INTO Users (FullName, Email, Phone, PasswordHash, Role, BirthDate) VALUES 
+                            ('Admin User', 'admin@example.com', '1234567890', @adminPass, 'Admin', '1980-01-01'),
+                            ('Teacher One', 'teacher1@example.com', '1234567891', @teacher1Pass, 'Teacher', '1985-05-15'),
+                            ('Student One', 'student1@example.com', '1234567892', @student1Pass, 'Student', '2000-09-20')";
 
                         using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, con))
                         {
-                            // Şifreleri hash'le
                             insertCmd.Parameters.AddWithValue("@adminPass", HashPassword("adminPass123"));
                             insertCmd.Parameters.AddWithValue("@teacher1Pass", HashPassword("teacher1Pass"));
-                            insertCmd.Parameters.AddWithValue("@teacher2Pass", HashPassword("teacher2Pass"));
                             insertCmd.Parameters.AddWithValue("@student1Pass", HashPassword("student1Pass"));
-                            insertCmd.Parameters.AddWithValue("@student2Pass", HashPassword("student2Pass"));
-                            insertCmd.Parameters.AddWithValue("@student3Pass", HashPassword("student3Pass"));
-                            insertCmd.Parameters.AddWithValue("@student4Pass", HashPassword("student4Pass"));
-                            insertCmd.Parameters.AddWithValue("@student5Pass", HashPassword("student5Pass"));
-                            insertCmd.Parameters.AddWithValue("@student6Pass", HashPassword("student6Pass"));
-                            insertCmd.Parameters.AddWithValue("@student7Pass", HashPassword("student7Pass"));
-                            insertCmd.Parameters.AddWithValue("@student8Pass", HashPassword("student8Pass"));
-                            insertCmd.Parameters.AddWithValue("@student9Pass", HashPassword("student9Pass"));
-                            insertCmd.Parameters.AddWithValue("@student10Pass", HashPassword("student10Pass"));
-                            // Kullanıcıları ekle
                             insertCmd.ExecuteNonQuery();
                         }
                         Console.WriteLine("Users seeded successfully.");
@@ -100,6 +90,38 @@ namespace UBYS_WPF.Helpers
                     }
                 }
             }
+        }
+
+        public static User GetLoggedInUser() => _loggedInUser;
+        public static void SetLoggedInUser(User user) => _loggedInUser = user;
+        public static void LogoutUser() => _loggedInUser = null;
+
+        public static User GetUserByFullName(string fullName)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SQLiteCommand("SELECT * FROM Users WHERE FullName = @FullName", connection))
+                {
+                    command.Parameters.AddWithValue("@FullName", fullName);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new User(
+                                reader.GetInt32(0),
+                                reader.GetString(1),
+                                reader.GetString(2),
+                                reader.GetString(3),
+                                reader.GetString(4),
+                                Enum.Parse<Role>(reader.GetString(5)),
+                                DateTime.Parse(reader.GetString(6))
+                            );
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }

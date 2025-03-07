@@ -9,7 +9,9 @@ namespace UBYS_WPF.MVVM.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
+        internal string FullName;
         private string _username;
+        private string _password;
         public string Username
         {
             get
@@ -20,6 +22,16 @@ namespace UBYS_WPF.MVVM.ViewModels
             {
                 _username = value;
                 OnPropertyChanged(nameof(Username));
+            }
+        }
+     
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+                OnPropertyChanged();
             }
         }
     }

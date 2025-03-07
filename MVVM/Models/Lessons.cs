@@ -8,8 +8,8 @@ namespace UBYS_WPF.MVVM.Models
 {
     internal class Lessons
     {
-        public string dersAd { get; set; }
-        public string kod { get; set; }
-        public int OgretmenId { get; set; }
+        public string LessonsName { get; set; }
+        public string LesCode { get; set; }
+        public int TeacherId { get; set; }
     }
 }

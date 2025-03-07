@@ -4,21 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UBYS_WPF.Stores;
+using UBYS_WPF.Helpers;
 
 namespace UBYS_WPF.Commands
 {
     public class LogoutCommand : CommandBase
     {
-        private readonly AccountStore _accountStore;
-
-        public LogoutCommand(AccountStore accountStore)
-        {
-            _accountStore = accountStore;
-        }
-
         public override void Execute(object parameter)
         {
-            _accountStore.Logout();
+            // Kullanıcının oturumunu kapat
+            DatabaseHelper.LogoutUser();
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UBYS_WPF.Cores;
 using UBYS_WPF.MVVM.ViewModels;
 using UBYS_WPF.Stores;
+using System.Windows.Controls;
 
 namespace UBYS_WPF.Services
 {
@@ -24,7 +21,7 @@ namespace UBYS_WPF.Services
             _createNavigationBarViewModel = createNavigationBarViewModel;
         }
 
-        public void Navigate()
+        public void Navigate(UserControl view)
         {
             _navigationStore.CurrentViewModel = new LayoutViewModel(_createNavigationBarViewModel(), _createViewModel());
         }

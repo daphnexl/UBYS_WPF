@@ -1,54 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using UBYS_WPF.Commands;
+using UBYS_WPF.Cores;
+using UBYS_WPF.Helpers;
+using UBYS_WPF.MVVM.Models;
 using UBYS_WPF.Services;
-using UBYS_WPF.Stores;
+using System.Windows.Controls;
+using UBYS_WPF.MVVM.Views;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
     public class NavigationBarViewModel : ViewModelBase
     {
-        private readonly AccountStore _accountStore;
+        private User _currentUser;
+        private readonly INavigationService _loginNavigationService; // Giriş ekranına gitmek için
 
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateAccountCommand { get; }
-        public ICommand NavigateLoginCommand { get; }
         public ICommand NavigatePeopleListingCommand { get; }
         public ICommand LogoutCommand { get; }
 
-        public bool IsLoggedIn => _accountStore.IsLoggedIn;
+        public bool IsLoggedIn => _currentUser != null;
 
-        public NavigationBarViewModel(AccountStore accountStore,
+        public NavigationBarViewModel(
             INavigationService homeNavigationService,
-            INavigationService accountNavigationService,
             INavigationService loginNavigationService,
             INavigationService peopleListingNavigationService)
         {
-            _accountStore = accountStore;
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
-            NavigateAccountCommand = new NavigateCommand(accountNavigationService);
-            NavigateLoginCommand = new NavigateCommand(loginNavigationService);
+            _loginNavigationService = loginNavigationService;
             NavigatePeopleListingCommand = new NavigateCommand(peopleListingNavigationService);
-            LogoutCommand = new LogoutCommand(_accountStore);
+            LogoutCommand = new RelayCommand(Logout);
 
-            _accountStore.CurrentAccountChanged += OnCurrentAccountChanged;
+            // Kullanıcı bilgisini yükle
+            LoadCurrentUser();
         }
 
-
-        private void OnCurrentAccountChanged()
+        private void LoadCurrentUser()
         {
+            _currentUser = DatabaseHelper.GetLoggedInUser();
             OnPropertyChanged(nameof(IsLoggedIn));
         }
 
-        public override void Dispose()
+        private void Logout(object parameter)
         {
-            _accountStore.CurrentAccountChanged -= OnCurrentAccountChanged;
+            DatabaseHelper.LogoutUser();
+            _currentUser = null;
+            OnPropertyChanged(nameof(IsLoggedIn));
 
-            base.Dispose();
+            // Giriş ekranına yönlendir
+            _loginNavigationService.Navigate(new MainWindow());
         }
     }
 }

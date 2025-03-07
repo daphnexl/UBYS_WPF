@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
+using System.Windows.Controls;
 using UBYS_WPF.Stores;
 
 namespace UBYS_WPF.Services
@@ -17,7 +13,7 @@ namespace UBYS_WPF.Services
             _navigationStore = navigationStore;
         }
 
-        public void Navigate()
+        public void Navigate(UserControl view)
         {
             _navigationStore.Close();
         }

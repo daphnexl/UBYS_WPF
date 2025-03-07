@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 
 namespace UBYS_WPF.MVVM.Models
 {
-    internal class User
+    public enum Role
     {
-
-        [PrimaryKey, AutoIncrement]
+        Admin,
+        Student,
+        Teacher
+    }
+    public class User
+    {
         public int Id { get; set; }
-        public string Ad { get; set; }
-        public string Soyad { get; set; }
-        public string Eposta { get; set; }
-        public string Telefon { get; set; }
-        public DateTime DogumTarihi { get; set; }
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string PasswordHash { get; set; }
+        public Role Role { get; set; }
+        public DateTime BirthDate { get; set; }
 
-        public User() { }
-        public User(int id, string ad, string soyad, string eposta, string telefon, DateTime dogumTarihi)
+        public User(int id, string fullName, string email, string phone, string passwordHash, Role role, DateTime birthDate)
         {
             Id = id;
-            Ad = ad;
-            Soyad = soyad;
-            Eposta = eposta;
-            Telefon = telefon;
-            DogumTarihi = dogumTarihi;
-        }
-
-        public override string ToString()
-        {
-            return $"{Ad} {Soyad}";
+            FullName = fullName;
+            Email = email;
+            Phone = phone;
+            PasswordHash = passwordHash;
+            Role = role;
+            BirthDate = birthDate;
         }
     }
 }

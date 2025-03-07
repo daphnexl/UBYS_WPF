@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MVVM\Model\**" />
+    <EmbeddedResource Remove="MVVM\Model\**" />
+    <None Remove="MVVM\Model\**" />
+    <Page Remove="MVVM\Model\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\Eye.ico" />
     <None Remove="Assets\Eye.png" />
     <None Remove="Assets\Invisible.ico" />
@@ -20,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="MVVM\Models\" />
-    <Folder Include="MVVM\Model\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,8 +52,6 @@
     <Resource Include="Assets\Invisible.ico" />
     <Resource Include="Assets\Invisible.png" />
     <Resource Include="Assets\User2.ico" />
-    <Resource Include="MVVM\Views\Eye.png" />
-    <Resource Include="MVVM\Views\Invisible.png" />
   </ItemGroup>
 
 </Project>

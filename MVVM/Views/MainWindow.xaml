@@ -132,6 +132,7 @@
         <Image Margin="368,96,368,274"
                Source="/Assets/User2.ico"
                Stretch="Fill" />
+        <ContentControl Content="{Binding CurrentView}" />
 
     </Grid>
 </Window>

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace UBYS_WPF.Services
 {
@@ -16,11 +12,11 @@ namespace UBYS_WPF.Services
             _navigationServices = navigationServices;
         }
 
-        public void Navigate()
+        public void Navigate(UserControl view)
         {
             foreach (INavigationService navigationService in _navigationServices)
             {
-                navigationService.Navigate();
+                navigationService.Navigate(view);
             }
         }
     }

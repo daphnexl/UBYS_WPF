@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UBYS_WPF.Commands;
-using UBYS_WPF.MVVM.ViewModels;
+﻿using UBYS_WPF.MVVM.ViewModels;
 using UBYS_WPF.Services;
 using UBYS_WPF.Stores;
+using System.Windows.Controls;
 
 namespace UBYS_WPF.Commands
 {
@@ -27,8 +22,11 @@ namespace UBYS_WPF.Commands
         {
             string name = _addPersonViewModel.Name;
             _peopleStore.AddPerson(name);
-
-            _navigationService.Navigate();
+            // Navigate metoduna parametre olarak bir UserControl vermeniz gerekiyor.
+            // Hangi UserControl'e gitmek istediğinizi burada belirtin.
+            // Örnek: _navigationService.Navigate(new PeopleView());
+            // Eğer bir PeopleView'iniz yoksa veya farklı bir yere gitmek istiyorsanız, ilgili UserControl'ü oluşturun ve buraya ekleyin.
+            _navigationService.Navigate(new UserControl()); // Geçici çözüm, gerçek UserControl'ü belirtin.
         }
     }
 }
