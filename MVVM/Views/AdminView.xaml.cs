@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UBYS_WPF.MVVM.Views
@@ -17,7 +18,7 @@ namespace UBYS_WPF.MVVM.Views
     /// <summary>
     /// Interaction logic for AdminView.xaml
     /// </summary>
-    public partial class AdminView : Window
+    public partial class AdminView : UserControl
     {
         public AdminView()
         {

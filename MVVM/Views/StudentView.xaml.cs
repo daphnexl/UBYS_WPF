@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace UBYS_WPF.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for StudentMenu.xaml
+    /// Interaction logic for StudentView.xaml
     /// </summary>
-    public partial class StudentMenu : UserControl
+    public partial class StudentView : UserControl
     {
-        public StudentMenu()
+        public StudentView()
         {
             InitializeComponent();
         }
