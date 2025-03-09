@@ -3,86 +3,110 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:UBYS_WPF.Components"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DataContext="{d:DesignInstance Type=vm:NavigationBarViewModel}"
              d:DesignHeight="450"
              d:DesignWidth="800"
              Background="#999999"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background"
-                    Value="Transparent" />
-            <Setter Property="Foreground"
-                    Value="White" />
-            <Setter Property="BorderThickness"
-                    Value="0" />
-            <Setter Property="Cursor"
-                    Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <TextBlock Text="{TemplateBinding Content}" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="True">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <TextBlock Text="{TemplateBinding Content}"
-                                           TextDecorations="Underline" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </UserControl.Resources>
-    <Grid MaxWidth="1000"
-          Margin="20 10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
+    <Grid>
+            <!--#region Navigation Bar Close Border -->
+            <Border Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    Panel.ZIndex="2"
+                    Opacity="0.35"
+                    Background="Black">
+                <Border.Effect>
+                    <BlurEffect Radius="10" />
+                </Border.Effect>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding ToggleNavigationBarVisibleCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Border>
+            <!--#endregion-->
+            <!--#Region Navigation Bar-->
+            <Border HorizontalAlignment="Left"
+                    Width="228"
+                    Background="#272B2F"
+                    Panel.ZIndex="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0"
-                   FontSize="16"       
-                   Foreground="White"
-                   Text="UBYS"
-                   FontWeight="Bold" />
+                    <Button Style="{StaticResource MenuButtonStyleBorder}"
+                            Command="{Binding ToggleNavigationBarVisibleCommand}" />
 
-        <Button Grid.Column="1"
-                Margin="10 0 0 0"
-                Command="{Binding NavigateHomeCommand}"
-                Content="Home" />
+                    <StackPanel Width="228"
+                                Grid.Row="1"
+                                VerticalAlignment="Top">
 
-        <Button Grid.Column="2"
-                Margin="10 0 0 0"
-                Command="{Binding NavigatePeopleListingCommand}"
-                Content="People" />
+                        <RadioButton Style="{StaticResource PageButton}"
+                                     Command="{Binding NavigateHomeCommand}"
+                                     IsChecked="{Binding IsHomeSelected, Mode=TwoWay}">
+                            <Grid>
+                                <Image Source="/Assets/homeIcon.png"
+                                       Style="{StaticResource ImageStyle}" />
+                                <TextBlock Text="Home"
+                                           Style="{StaticResource Text_Style}" />
+                            </Grid>
+                        </RadioButton>
 
-        <Button Grid.Column="3"
-                Margin="10 0 0 0"
-                Command="{Binding NavigateLoginCommand}"
-                Content="Login" />
+                        <RadioButton Style="{StaticResource PageButton}"
+                                     Command="{Binding NavigateConnectCommand}"
+                                     IsChecked="{Binding IsConnectSelected, Mode=TwoWay}">
+                            <Grid>
+                                <Image Source="/Assets/connectIcon.png"
+                                       Style="{StaticResource ImageStyle}" />
+                                <TextBlock Text="Connect"
+                                           Style="{StaticResource Text_Style}" />
+                            </Grid>
+                        </RadioButton>
 
-        <Button Grid.Column="4"
-                Margin="10 0 0 0"
-                Command="{Binding NavigateAccountCommand}"
-                Content="Account"
-                Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <RadioButton Style="{StaticResource PageButton}"
+                                     Command="{Binding NavigateScanCommand}"
+                                     IsChecked="{Binding IsScanSelected, Mode=TwoWay}">
+                            <Grid>
+                                <Image Source="/Assets/scanIcon.png"
+                                       Style="{StaticResource ImageStyle}" />
+                                <TextBlock Text="Scan"
+                                           Style="{StaticResource Text_Style}" />
+                            </Grid>
+                        </RadioButton>
 
-        <Button Grid.Column="5"
-                Margin="10 0 0 0"
-                Command="{Binding LogoutCommand}"
-                Content="Logout"
-                Visibility="{Binding IsLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}" />
-    </Grid>
+                        <RadioButton Style="{StaticResource PageButton}"
+                                     Command="{Binding NavigateTestCommand}"
+                                     IsChecked="{Binding IsTestSelected, Mode=TwoWay}">
+                            <Grid>
+                                <Image Source="/Assets/testIcon.png"
+                                       Style="{StaticResource ImageStyle}"
+                                       RenderTransformOrigin="186.033,-7.791"
+                                       Margin="22,0,0,10"
+                                       VerticalAlignment="Bottom" />
+                                <TextBlock Text="Test"
+                                           Style="{StaticResource Text_Style}" />
+                            </Grid>
+                        </RadioButton>
+
+                        <RadioButton Style="{StaticResource PageButton}"
+                                     Command="{Binding NavigateImagingCommand}"
+                                     IsChecked="{Binding IsImagingSelected, Mode=TwoWay}">
+                            <Grid>
+                                <Image Source="/Assets/imagingIcon.png"
+                                       Style="{StaticResource ImageStyle}" />
+                                <TextBlock Text="Imaging"
+                                           Style="{StaticResource Text_Style}" />
+                            </Grid>
+                        </RadioButton>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <!--#EndRegion Navigation Panel-->
+        </Grid>
 </UserControl>

@@ -20,20 +20,10 @@ namespace UBYS_WPF.MVVM.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(MainVM viewModel)
+        public MainWindow()
         {
             InitializeComponent();
-            DataContext = viewModel;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public static implicit operator UserControl(MainWindow v)
-        {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -24,5 +24,7 @@ namespace UBYS_WPF.Components
         {
             InitializeComponent();
         }
+
+      
     }
 }

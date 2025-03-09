@@ -12,11 +12,11 @@ namespace UBYS_WPF.Services
             _navigationServices = navigationServices;
         }
 
-        public void Navigate(UserControl view)
+        public void Navigate()
         {
             foreach (INavigationService navigationService in _navigationServices)
             {
-                navigationService.Navigate(view);
+                navigationService.Navigate();
             }
         }
     }

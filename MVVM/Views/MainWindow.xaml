@@ -14,9 +14,7 @@
         Width="800"
         WindowStartupLocation="CenterScreen"
         Background="#1E1E2F">
-    <Window.DataContext>
-        <vm:MainVM />
-    </Window.DataContext>
+   
     <Grid>
 
         <Border Background="#2C2C3A"

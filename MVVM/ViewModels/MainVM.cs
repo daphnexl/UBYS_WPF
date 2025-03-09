@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows;
-using UBYS_WPF.Cores;
 using System.Windows.Input;
 using System.Windows.Controls;
 using UBYS_WPF.MVVM.Views;
 using System.ComponentModel;
 using UBYS_WPF.Services;
+using UBYS_WPF.Stores;
 using UBYS_WPF.Commands;
 using UBYS_WPF.Helpers;
 using UBYS_WPF.MVVM.Models;
@@ -15,15 +15,15 @@ namespace UBYS_WPF.MVVM.ViewModels
 {
     public class MainVM : ViewModelBase
     {
-        private UserControl _currentView;
-        public UserControl CurrentView
+        
+
+    
+   
+        private readonly NavigationStore _navigationStore;
+        public ViewModelBase _currentViewModel => _navigationStore.CurrentViewModel;
+        private void OnCurrentViewModelChanged()
         {
-            get => _currentView;
-            set
-            {
-                _currentView = value;
-                OnPropertyChanged();
-            }
+            OnPropertyChanged(nameof(_currentViewModel));
         }
         public string Role { get; set; } // Kullanıcı tipini saklamak için
         private string _username;
@@ -45,6 +45,8 @@ namespace UBYS_WPF.MVVM.ViewModels
         public ICommand UsernameLostFocusCommand { get; }
         public ICommand ForgotPasswordCommand { get; }
         public ICommand TogglePasswordCommand { get; }
+
+
         public ICommand LoginCommand { get; }
 
 
@@ -67,6 +69,62 @@ namespace UBYS_WPF.MVVM.ViewModels
             {
                 _usernameTextColor = value;
                 OnPropertyChanged(nameof(UsernameTextColor));
+            }
+        }
+
+        public MainVM(NavigationStore navigationStore, INavigationService navigationService)
+        {
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            // Username
+            _username = Username = _defaultText;
+            _usernameTextColor = UsernameTextColor = Brushes.Gray;
+
+            UsernameGotFocusCommand = new RelayCommand(_ => OnUsernameFocus());
+            UsernameLostFocusCommand = new RelayCommand(_ => OnUsernameLostFocus());
+
+            // Password
+            _password = Password = _defaultTextPassword;
+            _passwordTextColor = PasswordTextColor = Brushes.Gray;
+
+            PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
+            PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
+            TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
+            ForgotPasswordCommand = new RelayCommand(_ => ShowForgotPasswordMessage());
+
+            LoginCommand = new Commands.LoginCommand(this, navigationService);
+
+        }
+
+
+
+
+        public void ShowForgotPasswordMessage()
+        {
+            MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
+                            "Bilgilendirme",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+        }
+
+        public void OnUsernameFocus()
+        {
+            if (Username == _defaultText)
+            {
+                Username = "";
+                UsernameTextColor = Brushes.White;
+            }
+        }
+
+
+
+
+        public void OnUsernameLostFocus()
+        {
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                Username = _defaultText;
+                UsernameTextColor = Brushes.Gray;
             }
         }
 
@@ -108,6 +166,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             }
         }
 
+
         public bool IsPasswordVisible
         {
             get => _isPasswordVisible;
@@ -134,60 +193,6 @@ namespace UBYS_WPF.MVVM.ViewModels
         {
             IsPasswordVisible = !IsPasswordVisible;
             ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
-        }
-
-        public MainVM(INavigationService navigationService)
-        {
-            //NavigationService = new NavigationService(view => CurrentView = view);
-            CurrentView = new MainWindow();
-            // Username
-            _username = Username = _defaultText;
-            _usernameTextColor = UsernameTextColor = Brushes.Gray;
-
-            UsernameGotFocusCommand = new RelayCommand(_ => OnUsernameFocus());
-            UsernameLostFocusCommand = new RelayCommand(_ => OnUsernameLostFocus());
-
-            // Password
-            _password = Password = _defaultTextPassword;
-            _passwordTextColor = PasswordTextColor = Brushes.Gray;
-
-            PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
-            PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
-            TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
-            ForgotPasswordCommand = new RelayCommand(_ => ShowForgotPasswordMessage());
-            LoginCommand = new Commands.LoginCommand(this, navigationService);
-        }
-
-
-
-
-        public void ShowForgotPasswordMessage()
-        {
-            MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
-                            "Bilgilendirme",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-        }
-
-        public void OnUsernameFocus()
-        {
-            if (Username == _defaultText)
-            {
-                Username = "";
-                UsernameTextColor = Brushes.White;
-            }
-        }
-
-
-
-
-        public void OnUsernameLostFocus()
-        {
-            if (string.IsNullOrWhiteSpace(Username))
-            {
-                Username = _defaultText;
-                UsernameTextColor = Brushes.Gray;
-            }
         }
     }
 }

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using UBYS_WPF.Cores;
 using UBYS_WPF.MVVM.ViewModels;
 
 namespace UBYS_WPF.Stores
 {
-    public class NavigationStore
+    public class NavigationStore : INavigationStore
     {
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
@@ -23,7 +22,7 @@ namespace UBYS_WPF.Stores
             }
         }
 
-        public UserControl CurrentView { get; internal set; }
+       
 
         public event Action CurrentViewModelChanged;
 

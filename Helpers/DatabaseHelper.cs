@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using UBYS_WPF.Cores;
 using UBYS_WPF.Helpers;
 using UBYS_WPF.MVVM.Models;
 using UBYS_WPF.MVVM.ViewModels;

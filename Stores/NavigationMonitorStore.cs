@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UBYS_WPF.Cores;
 using UBYS_WPF.MVVM.ViewModels;
 
 namespace UBYS_WPF.Stores
 {
-    public class ModalNavigationStore
+    public class NavigationMonitorStore : INavigationStore
     {
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
@@ -19,17 +18,11 @@ namespace UBYS_WPF.Stores
                 _currentViewModel?.Dispose();
                 _currentViewModel = value;
                 OnCurrentViewModelChanged();
+
             }
         }
 
-        public bool IsOpen => CurrentViewModel != null;
-
         public event Action CurrentViewModelChanged;
-
-        public void Close()
-        {
-            CurrentViewModel = null;
-        }
 
         private void OnCurrentViewModelChanged()
         {

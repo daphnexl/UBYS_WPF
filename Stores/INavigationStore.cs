@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using UBYS_WPF.MVVM.ViewModels;
 
-namespace UBYS_WPF.Services
+namespace UBYS_WPF.Stores
 {
-    public interface INavigationService
+    public interface INavigationStore
     {
-        void Navigate();
+        ViewModelBase CurrentViewModel { set; }
     }
 }

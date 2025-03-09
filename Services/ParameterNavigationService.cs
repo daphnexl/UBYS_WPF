@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Controls;
-using UBYS_WPF.Cores;
 using UBYS_WPF.Stores;
 using UBYS_WPF.MVVM.ViewModels;
 
@@ -17,7 +16,7 @@ namespace UBYS_WPF.Services
             _createViewModel = createViewModel;
         }
 
-        public void Navigate(UserControl view)
+        public void Navigate()
         {
             _navigationStore.CurrentViewModel = _createViewModel();
         }

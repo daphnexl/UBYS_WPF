@@ -48,7 +48,7 @@ namespace UBYS_WPF.Commands
                 // Yönlendirme yap
                 if (targetView != null)
                 {
-                    _navigationService.Navigate(targetView);
+                    _navigationService.Navigate();
                 }
             }
             else
