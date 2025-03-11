@@ -35,17 +35,13 @@ namespace UBYS_WPF
             //ViewModels
             services.AddSingleton<MainVM>();
             services.AddSingleton<LayoutViewModel>();
-            services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
-          
-          
-
+            services.AddTransient<NavigationBarViewModel>(s => CreateNavigationBarViewModel(s));
 
             //Windows
             services.AddSingleton<MainWindow>(s => new MainWindow()
             {
                 DataContext = s.GetRequiredService<MainVM>()
             });
-         
 
             _serviceProvider = services.BuildServiceProvider();
         }
@@ -56,25 +52,24 @@ namespace UBYS_WPF
             initialNavigationService.Navigate();
 
             var monitorView = _serviceProvider.GetRequiredService<MainWindow>();
-           
             monitorView.Show();
-           
+
             base.OnStartup(e);
         }
 
-        private INavigationService CreateNavigationService(IServiceProvider serviceProvider)
+        private INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
         {
             return new LayoutNavigationService<MainVM>(
-                serviceProvider.GetRequiredService < NavigationMonitorStore>(),
+                serviceProvider.GetRequiredService<NavigationMonitorStore>(),
                 serviceProvider.GetRequiredService<NavigationStore>(),
                 () => serviceProvider.GetRequiredService<NavigationBarViewModel>(),
                 serviceProvider.GetRequiredService<NavigationBarPropertiesStore>());
         }
 
-        
-        private NavigationBarViewModel CreateNavigationBarVM(IServiceProvider serviceProvider)
+        private NavigationBarViewModel CreateNavigationBarViewModel(IServiceProvider serviceProvider)
         {
-            return new NavigationBarViewModel(serviceProvider.GetRequiredService<NavigationBarPropertiesStore>(),
+            return new NavigationBarViewModel(
+                serviceProvider.GetRequiredService<NavigationBarPropertiesStore>(),
                 CreateHomeNavigationService(serviceProvider),
                 CreateConnectNavigationService(serviceProvider),
                 CreateScanNavigationService(serviceProvider),
@@ -83,4 +78,3 @@ namespace UBYS_WPF
         }
     }
 }
-
