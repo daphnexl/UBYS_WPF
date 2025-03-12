@@ -16,19 +16,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Add Male User Group.png" />
+    <None Remove="Assets\Add properties.png" />
+    <None Remove="Assets\Close Window.png" />
     <None Remove="Assets\connectIcon.png" />
+    <None Remove="Assets\Course Assign.png" />
+    <None Remove="Assets\Exam.ico" />
     <None Remove="Assets\Eye.ico" />
     <None Remove="Assets\Eye.png" />
+    <None Remove="Assets\Grades.png" />
+    <None Remove="Assets\Home.png" />
     <None Remove="Assets\homeIcon.png" />
     <None Remove="Assets\imagingIcon.png" />
     <None Remove="Assets\Invisible.ico" />
     <None Remove="Assets\Invisible.png" />
+    <None Remove="Assets\Knowledge Sharing.png" />
+    <None Remove="Assets\Menu.png" />
     <None Remove="Assets\menuHoverIcon.png" />
     <None Remove="Assets\menuIcon.png" />
-    <None Remove="Assets\scanIcon.png" />
+    <None Remove="Assets\Play.png" />
+    <None Remove="Assets\Students.png" />
     <None Remove="Assets\testIcon.png" />
     <None Remove="MVVM\Views\Eye.png" />
     <None Remove="MVVM\Views\Invisible.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Add Male User Group.png" />
+    <Resource Include="Assets\Add properties.png" />
+    <Resource Include="Assets\Exam.ico" />
+    <Resource Include="Assets\Play.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,16 +75,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Close Window.png" />
     <Resource Include="Assets\connectIcon.png" />
+    <Resource Include="Assets\Course Assign.png" />
     <Resource Include="Assets\Eye.ico" />
     <Resource Include="Assets\Eye.png" />
+    <Resource Include="Assets\Grades.png" />
+    <Resource Include="Assets\Home.png" />
     <Resource Include="Assets\homeIcon.png" />
     <Resource Include="Assets\imagingIcon.png" />
     <Resource Include="Assets\Invisible.ico" />
     <Resource Include="Assets\Invisible.png" />
+    <Resource Include="Assets\Knowledge Sharing.png" />
+    <Resource Include="Assets\Menu.png" />
     <Resource Include="Assets\menuHoverIcon.png" />
     <Resource Include="Assets\menuIcon.png" />
-    <Resource Include="Assets\scanIcon.png" />
+    <Resource Include="Assets\Students.png" />
     <Resource Include="Assets\testIcon.png" />
   </ItemGroup>
 

@@ -83,11 +83,11 @@
     <!--#endregion PageButton-->
     <!--#region MenuButton-->
     <ImageBrush x:Key="menuBtn"
-                ImageSource="/Assets/menuIcon.png"
+                ImageSource="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Menu.png"
                 RenderOptions.BitmapScalingMode="HighQuality"
                 Stretch="Uniform" />
     <ImageBrush x:Key="menuBtnHv"
-                ImageSource="/Assets/menuHoverIcon.png"
+                ImageSource="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Menu.png"
                 RenderOptions.BitmapScalingMode="HighQuality"
                 Stretch="Uniform" />
 

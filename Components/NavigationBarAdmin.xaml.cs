@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace UBYS_WPF.Components
 {
     /// <summary>
-    /// Interaction logic for NavigationBar.xaml
+    /// Interaction logic for NavigationBarAdmin.xaml
     /// </summary>
-    public partial class NavigationBar : UserControl
+    public partial class NavigationBarAdmin : UserControl
     {
-        public NavigationBar()
+        public NavigationBarAdmin()
         {
             InitializeComponent();
         }
-
-       
     }
 }

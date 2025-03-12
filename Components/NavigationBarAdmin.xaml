@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UBYS_WPF.Components.NavigationBar"
+﻿<UserControl x:Class="UBYS_WPF.Components.NavigationBarAdmin"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -39,8 +39,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button
-                    Style="{StaticResource MenuButtonStyleBorder}"
+                <Button Style="{StaticResource MenuButtonStyleBorder}"
                         Command="{Binding ToggleNavigationBarVisibleCommand}"
                         Margin="0,8,10,0"
                         VerticalAlignment="Top" />
@@ -48,6 +47,7 @@
                 <StackPanel Width="228"
                             Grid.Row="1"
                             VerticalAlignment="Top">
+
 
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateHomeCommand}"
@@ -61,23 +61,37 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource PageButton}"
-                                 Command="{Binding NavigateMyScoreCommand}"
+                                 Command="{Binding NavigateAddCourseCommand}"
                                  IsChecked="{Binding IsConnectSelected, Mode=TwoWay}">
                         <Grid>
-                            <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Grades.png"
+                            <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Add properties.png"
                                    Style="{StaticResource ImageStyle}" />
-                            <TextBlock Text="My Score"
+                            <TextBlock Text="Add Course"
                                        Style="{StaticResource Text_Style}" />
                         </Grid>
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource PageButton}"
-                                 Command="{Binding NavigateCourseSelectionCommand}"
+                                 Command="{Binding NavigateTeacherAppointmentCommand}"
                                  IsChecked="{Binding IsScanSelected, Mode=TwoWay}">
                         <Grid>
-                            <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Course Assign.png"
+                            <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Add Male User Group.png"
+                                   Style="{StaticResource ImageStyle}"
+                                   Margin="20,0,0,0"
+                                   Width="35" />
+                            <TextBlock Text="Teacher Appointment"
+                                       TextWrapping="Wrap"
+                                       Style="{StaticResource Text_Style}" />
+                        </Grid>
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource PageButton}"
+                                 Command="{Binding NavigateCourseSFCommand}"
+                                 IsChecked="{Binding IsScanSelected, Mode=TwoWay}">
+                        <Grid>
+                            <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Play.png"
                                    Style="{StaticResource ImageStyle}" />
-                            <TextBlock Text="Course selection"
+                            <TextBlock Text="Start/Finish Course Selection"
+                                       TextWrapping="Wrap"
                                        Style="{StaticResource Text_Style}" />
                         </Grid>
                     </RadioButton>

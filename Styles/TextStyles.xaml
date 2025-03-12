@@ -9,7 +9,7 @@
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="Foreground"
-                Value="#DBDBDB" />
+                Value="Black" />
         <Setter Property="FontSize"
                 Value="18" />
         <Setter Property="Margin"
@@ -21,7 +21,7 @@
         <Setter Property="FontFamily"
                 Value="Arial" />
         <Setter Property="Foreground"
-                Value="#DBDBDB" />
+                Value="Black" />
         <Setter Property="FontSize"
                 Value="14" />
     </Style>
