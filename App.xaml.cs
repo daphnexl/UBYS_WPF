@@ -56,6 +56,10 @@ namespace UBYS_WPF
 
             base.OnStartup(e);
         }
+        public class NavigationMonitorStore
+        {
+            // Store için temel özellikler ve metotlar burada olacak
+        }
 
         private INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
         {
@@ -65,7 +69,6 @@ namespace UBYS_WPF
                 () => serviceProvider.GetRequiredService<NavigationBarViewModel>(),
                 serviceProvider.GetRequiredService<NavigationBarPropertiesStore>());
         }
-
         private NavigationBarViewModel CreateNavigationBarViewModel(IServiceProvider serviceProvider)
         {
             return new NavigationBarViewModel(

@@ -12,17 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UBYS_WPF.MVVM.ViewModels;
 
 namespace UBYS_WPF.MVVM.Views
 {
-    /// <summary>
-    /// Interaction logic for StudentView.xaml
-    /// </summary>
     public partial class StudentView : UserControl
     {
-        public StudentView()
+        public StudentView(NavigationBarViewModel navigationBarViewModel)
         {
             InitializeComponent();
+            DataContext = navigationBarViewModel;
         }
     }
 }

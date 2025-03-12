@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UBYS_WPF.MVVM.ViewModels;
 
 namespace UBYS_WPF.MVVM.Views
 {
@@ -20,9 +21,10 @@ namespace UBYS_WPF.MVVM.Views
     /// </summary>
     public partial class TeacherView : UserControl
     {
-        public TeacherView()
+        public TeacherView(NavigationBarViewModel navigationBarViewModel)
         {
             InitializeComponent();
+            DataContext = navigationBarViewModel;
         }
     }
 }
