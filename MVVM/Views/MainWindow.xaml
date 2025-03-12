@@ -14,9 +14,9 @@
         Width="800"
         WindowStartupLocation="CenterScreen"
         Background="#1E1E2F">
-   
-    <Grid>
 
+    <Grid>
+        <!-- Header -->
         <Border Background="#2C2C3A"
                 Height="80"
                 VerticalAlignment="Top">
@@ -28,6 +28,7 @@
                        HorizontalAlignment="Center" />
         </Border>
 
+        <!-- Login Form -->
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Width="416"
@@ -84,6 +85,7 @@
                              Width="322"
                              Visibility="{Binding PasswordBoxVisibility}" />
 
+                <!-- Toggle Password Visibility -->
                 <Button Command="{Binding TogglePasswordCommand}"
                         Width="30"
                         Height="30"
@@ -124,13 +126,12 @@
                     FontSize="16"
                     Command="{Binding LoginCommand}"
                     Cursor="Hand"
-                    Margin="0,17,0,0"/>
+                    Margin="0,17,0,0" />
         </StackPanel>
 
         <Image Margin="368,96,368,274"
                Source="/Assets/User2.ico"
                Stretch="Fill" />
         <ContentControl Content="{Binding CurrentView}" />
-
     </Grid>
 </Window>
