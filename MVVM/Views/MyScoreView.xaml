@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="UBYS_WPF.MVVM.Views.MyScoreView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UBYS_WPF.MVVM.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+
+    <Grid Background="#0D1B2A">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="My Grades"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="White"
+                   Margin="10"
+                   Grid.Row="0" />
+
+        <!-- DataGrid for grades -->
+        <DataGrid ItemsSource="{Binding Grades}"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  Background="#1B263B"
+                  Foreground="White"
+                  RowBackground="#415A77"
+                  AlternatingRowBackground="#778DA9"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  Margin="10">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Course"
+                                    Binding="{Binding CourseName}"
+                                    Width="*" />
+                <DataGridTextColumn Header="Grade"
+                                    Binding="{Binding Grade}"
+                                    Width="Auto" />
+                <DataGridTextColumn Header="Teacher"
+                                    Binding="{Binding TeacherName}"
+                                    Width="*" />
+                <DataGridTextColumn Header="Date"
+                                    Binding="{Binding DateReceived}"
+                                    Width="Auto" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
