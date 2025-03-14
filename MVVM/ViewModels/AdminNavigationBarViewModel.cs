@@ -1,22 +1,18 @@
-﻿
-using Microsoft.Xaml.Behaviors.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using UBYS_WPF.Commands;
-using UBYS_WPF.MVVM.ViewModels;
 using UBYS_WPF.Services;
 using UBYS_WPF.Stores;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
-    public class NavigationBarViewModel : ViewModelBase
+   public class AdminNavigationBarViewModel : ViewModelBase
     {
-        public readonly NavigationBarPropertiesStore _navigationBarPropertiesStore;
+        public readonly AdminNavigationBarPropertiesStore _navigationBarPropertiesStore;
 
         #region NavigationBarVisibility Command
         public bool IsNavigationBarVisible
@@ -50,30 +46,42 @@ namespace UBYS_WPF.MVVM.ViewModels
                 }
             }
         }
-
-        public bool IsMyScoreSelected
+        public bool IsAddCourseSelected
         {
-            get => _navigationBarPropertiesStore.IsMyScoreSelected;
+            get => _navigationBarPropertiesStore.IsAddCourseSelected;
             set
             {
-                if (_navigationBarPropertiesStore.IsMyScoreSelected != value)
+                if (_navigationBarPropertiesStore.IsAddCourseSelected != value)
                 {
-                    _navigationBarPropertiesStore.IsMyScoreSelected = value;
-                    OnPropertyChanged(nameof(IsMyScoreSelected));
+                    _navigationBarPropertiesStore.IsAddCourseSelected = value;
+                    OnPropertyChanged(nameof(IsAddCourseSelected));
+                }
+            }
+        }
+
+        public bool IsTeacherAppointmentSelected
+        {
+            get => _navigationBarPropertiesStore.IsTeacherAppointmentSelected;
+            set
+            {
+                if (_navigationBarPropertiesStore.IsTeacherAppointmentSelected != value)
+                {
+                    _navigationBarPropertiesStore.IsTeacherAppointmentSelected = value;
+                    OnPropertyChanged(nameof(IsTeacherAppointmentSelected));
                 }
 
             }
         }
 
-        public bool IsCourseSelectionSelected
+        public bool IsCourseSFSelected
         {
-            get => _navigationBarPropertiesStore.IsCourseSelectionSelected;
+            get => _navigationBarPropertiesStore.IsCourseSFSelected;
             set
             {
-                if (_navigationBarPropertiesStore.IsCourseSelectionSelected != value)
+                if (_navigationBarPropertiesStore.IsCourseSFSelected != value)
                 {
-                    _navigationBarPropertiesStore.IsCourseSelectionSelected = value;
-                    OnPropertyChanged(nameof(IsCourseSelectionSelected));
+                    _navigationBarPropertiesStore.IsCourseSFSelected = value;
+                    OnPropertyChanged(nameof(IsCourseSFSelected));
                 }
 
             }
@@ -93,23 +101,25 @@ namespace UBYS_WPF.MVVM.ViewModels
             }
         }
 
-       
+
         #endregion
 
         #region Navigation Commands
         public ICommand NavigateHomeCommand { get; }
+        public ICommand NavigateAddCourseCommand { get; }
+        public ICommand NavigateCourseSFCommand { get; }
+        public ICommand NavigateTeacherAppointmentCommand { get; }
         public ICommand NavigateExitCommand { get; }
-        public ICommand NavigateCourseSelectionCommand { get; }
-        public ICommand NavigateMyScoreCommand { get; }
-        
+
         #endregion
 
-        public NavigationBarViewModel(NavigationBarPropertiesStore navigationBarPropertiesStore,
+        public AdminNavigationBarViewModel(AdminNavigationBarPropertiesStore navigationBarPropertiesStore,
             INavigationService homeNavigationService,
             INavigationService exitNavigationService,
-            INavigationService myscoreNavigationService,
-            INavigationService courseselectionNavigationService)
-          
+            INavigationService coursesfNavigationService,
+            INavigationService teacherappointmentNavigationService,
+            INavigationService addcourseNavigationService)
+
         {
             _navigationBarPropertiesStore = navigationBarPropertiesStore;
             _navigationBarPropertiesStore.NavigationBarVisibilityChanged += _navigationBarPropertiesStore_NavigationBarVisibilityChanged;
@@ -118,9 +128,11 @@ namespace UBYS_WPF.MVVM.ViewModels
 
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateExitCommand = new NavigateCommand(exitNavigationService);
-            NavigateCourseSelectionCommand = new NavigateCommand(courseselectionNavigationService);
-            NavigateMyScoreCommand = new NavigateCommand(myscoreNavigationService);
-           
+            NavigateTeacherAppointmentCommand = new NavigateCommand(teacherappointmentNavigationService);
+            NavigateAddCourseCommand = new NavigateCommand(addcourseNavigationService);
+            NavigateCourseSFCommand = new NavigateCommand(coursesfNavigationService);
+
+
         }
 
         private void _navigationBarPropertiesStore_NavigationBarVisibilityChanged()
@@ -132,9 +144,10 @@ namespace UBYS_WPF.MVVM.ViewModels
         {
             OnPropertyChanged(nameof(IsHomeSelected));
             OnPropertyChanged(nameof(IsExitSelected));
-            OnPropertyChanged(nameof(IsCourseSelectionSelected));
-            OnPropertyChanged(nameof(IsMyScoreSelected));
-          
+            OnPropertyChanged(nameof(IsTeacherAppointmentSelected));
+            OnPropertyChanged(nameof(IsCourseSFSelected));
+            OnPropertyChanged(nameof(IsAddCourseSelected));
+
         }
 
         private void ToggleNavigationBarVisibility()
@@ -149,3 +162,5 @@ namespace UBYS_WPF.MVVM.ViewModels
         }
     }
 }
+
+

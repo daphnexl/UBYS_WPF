@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UBYS_WPF.Stores
 {
-    public class NavigationBarPropertiesStore
+    public class AdminNavigationBarPropertiesStore
     {
         #region NavigationBarMenuVisibility Property
         private bool _isNavigationBarVisible;
@@ -33,24 +33,34 @@ namespace UBYS_WPF.Stores
             }
         }
 
-        private bool _isMyScoreSelected;
-        public bool IsMyScoreSelected
+        private bool _isAddCourseSelected;
+        public bool IsAddCourseSelected
         {
-            get => _isMyScoreSelected;
+            get => _isAddCourseSelected;
             set
             {
-                _isMyScoreSelected = value;
+                _isAddCourseSelected = value;
                 SelectedNavigationBarMenuChanged?.Invoke();
             }
         }
 
-        private bool _isCourseSelectionSelected;
-        public bool IsCourseSelectionSelected
+        private bool _isTeacherAppointmentSelected;
+        public bool IsTeacherAppointmentSelected
         {
-            get => _isCourseSelectionSelected;
+            get => _isTeacherAppointmentSelected;
             set
             {
-                _isCourseSelectionSelected = value;
+                _isTeacherAppointmentSelected = value;
+                SelectedNavigationBarMenuChanged?.Invoke();
+            }
+        }
+        private bool _isCourseSFSelected;
+        public bool IsCourseSFSelected
+        {
+            get => _isCourseSFSelected;
+            set
+            {
+                _isCourseSFSelected = value;
                 SelectedNavigationBarMenuChanged?.Invoke();
             }
         }
@@ -66,7 +76,7 @@ namespace UBYS_WPF.Stores
             }
         }
 
-    
+
         #endregion
 
         #region Actions
@@ -75,15 +85,16 @@ namespace UBYS_WPF.Stores
         #endregion
 
         #region Constructor
-        public NavigationBarPropertiesStore()
+        public AdminNavigationBarPropertiesStore()
         {
             // Varsayılan başlangıç değerleri
             _isNavigationBarVisible = false;
             _isHomeSelected = true;
-            _isMyScoreSelected = false;
+            _isTeacherAppointmentSelected = false;
             _isExitSelected = false;
-            _isCourseSelectionSelected = false;
-          
+            _isCourseSFSelected = false;
+            _isAddCourseSelected = false;
+
         }
         #endregion
     }

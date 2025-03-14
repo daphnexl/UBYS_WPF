@@ -14,9 +14,9 @@ using UBYS_WPF.Stores;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
-    public class NavigationBarViewModel : ViewModelBase
+    public class TeacherNavigationBarViewModel : ViewModelBase
     {
-        public readonly NavigationBarPropertiesStore _navigationBarPropertiesStore;
+        public readonly TeacherNavigationBarPropertiesStore _navigationBarPropertiesStore;
 
         #region NavigationBarVisibility Command
         public bool IsNavigationBarVisible
@@ -50,30 +50,42 @@ namespace UBYS_WPF.MVVM.ViewModels
                 }
             }
         }
-
-        public bool IsMyScoreSelected
+        public bool IsStudentsSelected
         {
-            get => _navigationBarPropertiesStore.IsMyScoreSelected;
+            get => _navigationBarPropertiesStore.IsStudentsSelected;
             set
             {
-                if (_navigationBarPropertiesStore.IsMyScoreSelected != value)
+                if (_navigationBarPropertiesStore.IsStudentsSelected != value)
                 {
-                    _navigationBarPropertiesStore.IsMyScoreSelected = value;
-                    OnPropertyChanged(nameof(IsMyScoreSelected));
+                    _navigationBarPropertiesStore.IsStudentsSelected = value;
+                    OnPropertyChanged(nameof(IsStudentsSelected));
+                }
+            }
+        }
+
+        public bool IsMyCoursesSelected
+        {
+            get => _navigationBarPropertiesStore.IsMyCoursesSelected;
+            set
+            {
+                if (_navigationBarPropertiesStore.IsMyCoursesSelected != value)
+                {
+                    _navigationBarPropertiesStore.IsMyCoursesSelected = value;
+                    OnPropertyChanged(nameof(IsMyCoursesSelected));
                 }
 
             }
         }
 
-        public bool IsCourseSelectionSelected
+        public bool IsEditNoteSelected
         {
-            get => _navigationBarPropertiesStore.IsCourseSelectionSelected;
+            get => _navigationBarPropertiesStore.IsEditNoteSelected;
             set
             {
-                if (_navigationBarPropertiesStore.IsCourseSelectionSelected != value)
+                if (_navigationBarPropertiesStore.IsEditNoteSelected != value)
                 {
-                    _navigationBarPropertiesStore.IsCourseSelectionSelected = value;
-                    OnPropertyChanged(nameof(IsCourseSelectionSelected));
+                    _navigationBarPropertiesStore.IsEditNoteSelected = value;
+                    OnPropertyChanged(nameof(IsEditNoteSelected));
                 }
 
             }
@@ -93,23 +105,25 @@ namespace UBYS_WPF.MVVM.ViewModels
             }
         }
 
-       
+
         #endregion
 
         #region Navigation Commands
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateExitCommand { get; }
-        public ICommand NavigateCourseSelectionCommand { get; }
-        public ICommand NavigateMyScoreCommand { get; }
-        
+        public ICommand NavigateMyCoursesCommand { get; }
+        public ICommand NavigateStudentsCommand { get; }
+        public ICommand NavigateEditNoteCommand { get; }
+
         #endregion
 
-        public NavigationBarViewModel(NavigationBarPropertiesStore navigationBarPropertiesStore,
+        public TeacherNavigationBarViewModel(TeacherNavigationBarPropertiesStore navigationBarPropertiesStore,
             INavigationService homeNavigationService,
             INavigationService exitNavigationService,
-            INavigationService myscoreNavigationService,
-            INavigationService courseselectionNavigationService)
-          
+            INavigationService mycoursesNavigationService,
+            INavigationService editnoteNavigationService,
+            INavigationService studentsNavigationService)
+
         {
             _navigationBarPropertiesStore = navigationBarPropertiesStore;
             _navigationBarPropertiesStore.NavigationBarVisibilityChanged += _navigationBarPropertiesStore_NavigationBarVisibilityChanged;
@@ -118,9 +132,11 @@ namespace UBYS_WPF.MVVM.ViewModels
 
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateExitCommand = new NavigateCommand(exitNavigationService);
-            NavigateCourseSelectionCommand = new NavigateCommand(courseselectionNavigationService);
-            NavigateMyScoreCommand = new NavigateCommand(myscoreNavigationService);
-           
+            NavigateMyCoursesCommand = new NavigateCommand(mycoursesNavigationService);
+            NavigateEditNoteCommand = new NavigateCommand(editnoteNavigationService);
+            NavigateStudentsCommand = new NavigateCommand(studentsNavigationService);
+          
+
         }
 
         private void _navigationBarPropertiesStore_NavigationBarVisibilityChanged()
@@ -132,9 +148,10 @@ namespace UBYS_WPF.MVVM.ViewModels
         {
             OnPropertyChanged(nameof(IsHomeSelected));
             OnPropertyChanged(nameof(IsExitSelected));
-            OnPropertyChanged(nameof(IsCourseSelectionSelected));
-            OnPropertyChanged(nameof(IsMyScoreSelected));
-          
+            OnPropertyChanged(nameof(IsMyCoursesSelected));
+            OnPropertyChanged(nameof(IsEditNoteSelected));
+            OnPropertyChanged(nameof(IsStudentsSelected));
+
         }
 
         private void ToggleNavigationBarVisibility()

@@ -13,17 +13,21 @@ namespace UBYS_WPF.MVVM.ViewModels
     public class LayoutViewModel : ViewModelBase
     {
         public NavigationBarViewModel NavigationBarViewModel { get; }
+        public AdminNavigationBarViewModel AdminNavigationBarViewModel { get; }
+        public TeacherNavigationBarViewModel TeacherNavigationBarViewModel { get; }
         public ViewModelBase ContentViewModel { get; }
 
         public readonly NavigationBarPropertiesStore _navigationBarPropertiesStore;
 
         public ICommand ToggleNavigationBarVisibleCommand { get; }
 
-        public LayoutViewModel(NavigationBarViewModel navigationBarVM,
+        public LayoutViewModel(NavigationBarViewModel navigationBarVM, TeacherNavigationBarViewModel teachernavigationBarVM, AdminNavigationBarViewModel adminnavigationBarVM,
             ViewModelBase contentViewModel,
             NavigationBarPropertiesStore navigationBarPropertiesStore)
         {
             NavigationBarViewModel = navigationBarVM;
+            TeacherNavigationBarViewModel = teachernavigationBarVM;
+            AdminNavigationBarViewModel = adminnavigationBarVM;
             ContentViewModel = contentViewModel;
 
             _navigationBarPropertiesStore = navigationBarPropertiesStore;

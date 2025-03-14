@@ -62,7 +62,7 @@
 
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateAddCourseCommand}"
-                                 IsChecked="{Binding IsConnectSelected, Mode=TwoWay}">
+                                 IsChecked="{Binding IsAddCourseSelected, Mode=TwoWay}">
                         <Grid>
                             <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Add properties.png"
                                    Style="{StaticResource ImageStyle}" />
@@ -73,7 +73,7 @@
 
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateTeacherAppointmentCommand}"
-                                 IsChecked="{Binding IsScanSelected, Mode=TwoWay}">
+                                 IsChecked="{Binding IsTeacherAppointmentSelected, Mode=TwoWay}">
                         <Grid>
                             <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Add Male User Group.png"
                                    Style="{StaticResource ImageStyle}"
@@ -86,7 +86,7 @@
                     </RadioButton>
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateCourseSFCommand}"
-                                 IsChecked="{Binding IsScanSelected, Mode=TwoWay}">
+                                 IsChecked="{Binding IsCourseSFSelected, Mode=TwoWay}">
                         <Grid>
                             <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Play.png"
                                    Style="{StaticResource ImageStyle}" />
@@ -98,7 +98,7 @@
 
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateExitCommand}"
-                                 IsChecked="{Binding IsTestSelected, Mode=TwoWay}">
+                                 IsChecked="{Binding IsExitSelected, Mode=TwoWay}">
                         <Grid>
                             <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Close Window.png"
                                    Style="{StaticResource ImageStyle}"

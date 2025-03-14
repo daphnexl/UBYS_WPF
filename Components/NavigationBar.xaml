@@ -62,7 +62,7 @@
 
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateMyScoreCommand}"
-                                 IsChecked="{Binding IsConnectSelected, Mode=TwoWay}">
+                                 IsChecked="{Binding IsMyScoreSelected, Mode=TwoWay}">
                         <Grid>
                             <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Grades.png"
                                    Style="{StaticResource ImageStyle}" />
@@ -73,7 +73,7 @@
 
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateCourseSelectionCommand}"
-                                 IsChecked="{Binding IsScanSelected, Mode=TwoWay}">
+                                 IsChecked="{Binding IsCourseSelectionSelected, Mode=TwoWay}">
                         <Grid>
                             <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Course Assign.png"
                                    Style="{StaticResource ImageStyle}" />
@@ -84,7 +84,7 @@
 
                     <RadioButton Style="{StaticResource PageButton}"
                                  Command="{Binding NavigateExitCommand}"
-                                 IsChecked="{Binding IsTestSelected, Mode=TwoWay}">
+                                 IsChecked="{Binding IsExitSelected, Mode=TwoWay}">
                         <Grid>
                             <Image Source="C:\Users\User\OneDrive\Belgeler\GitHub\UBYS_WPF\Assets\Close Window.png"
                                    Style="{StaticResource ImageStyle}"

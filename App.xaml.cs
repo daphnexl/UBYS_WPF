@@ -28,6 +28,17 @@ namespace UBYS_WPF
             services.AddSingleton<NavigationMonitorStore>();
             services.AddSingleton<NavigationStore>();
             services.AddSingleton<NavigationBarPropertiesStore>();
+            services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
+            services.AddSingleton<HomeVM>(s => new HomeVM(CreateHomeNavigationService(s)));
+            services.AddSingleton<MyScoreVM>();
+            services.AddSingleton<CourseSelectionVM>();
+            services.AddSingleton<ExitVM>();
+            services.AddSingleton<SFCourseSelectionVM>();
+            services.AddSingleton<StudentsVM>();
+            services.AddSingleton<EditNoteVM>();
+            services.AddSingleton<AddCourseVM>();
+            services.AddSingleton<TeacherAppointmentVM>();
+            services.AddSingleton<TMyCoursesVM>();
 
             //Services
             services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
@@ -74,10 +85,15 @@ namespace UBYS_WPF
             return new NavigationBarViewModel(
                 serviceProvider.GetRequiredService<NavigationBarPropertiesStore>(),
                 CreateHomeNavigationService(serviceProvider),
-                CreateConnectNavigationService(serviceProvider),
-                CreateScanNavigationService(serviceProvider),
-                CreateTestNavigationService(serviceProvider),
-                CreateImagingNavigationService(serviceProvider));
+                CreateMyScoreNavigationService(serviceProvider),
+                CreateCourseSelectionNavigationService(serviceProvider),
+                CreateExitNavigationService(serviceProvider),
+                CreateAddCourseNavigationService(serviceProvider),
+                CreateTeacherAppointmentNavigationService(serviceProvider),
+                CreateSFCourseSelectionNavigationService(serviceProvider),
+                CreateEditNoteNavigationService(serviceProvider),
+                CreateStudentsNavigationService(serviceProvider),
+                CreateTMyCoursesNavigationService(serviceProvider));
         }
     }
 }
