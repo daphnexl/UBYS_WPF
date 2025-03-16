@@ -9,10 +9,10 @@
              d:DesignWidth="800">
 
     <!-- Bind ViewModel -->
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:MyScoreVM/>
-    </UserControl.DataContext>
-    
+    </UserControl.DataContext>-->
+
     <Grid Background="#0D1B2A"
           Margin="20">
         <Grid.RowDefinitions>
@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Text="My Grades"
+        <TextBlock Text="My Scores"
                    FontSize="24"
                    FontWeight="Bold"
                    Foreground="White"
@@ -39,15 +39,56 @@
                 <!-- Grades -->
             </Grid.ColumnDefinitions>
 
-            <!-- Class List -->
-            <ListBox ItemsSource="{Binding Courses}"
-                     Background="#1B263B"
-                     Foreground="White"
-                     BorderBrush="White"
-                     Margin="5"
-                     Grid.Column="0" />
+            <!-- Long white TextBoxes stacked vertically (7 times) -->
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="0"
+                        Margin="13">
+                <!-- 7 TextBox controls -->
+                <TextBox Text="{Binding CourseName}"
+                         Background="White"
+                         Foreground="Black"
+                         BorderBrush="White"
+                         Margin="0,12"
+                         VerticalAlignment="Top" />
+                <TextBox Text="{Binding CourseName}"
+                         Background="White"
+                         Foreground="Black"
+                         BorderBrush="White"
+                         Margin="0,12"
+                         VerticalAlignment="Top" />
+                <TextBox Text="{Binding CourseName}"
+                         Background="White"
+                         Foreground="Black"
+                         BorderBrush="White"
+                         Margin="0,12"
+                         VerticalAlignment="Top" />
+                <TextBox Text="{Binding CourseName}"
+                         Background="White"
+                         Foreground="Black"
+                         BorderBrush="White"
+                         Margin="0,12"
+                         VerticalAlignment="Top" />
+                <TextBox Text="{Binding CourseName}"
+                         Background="White"
+                         Foreground="Black"
+                         BorderBrush="White"
+                         Margin="0,12"
+                         VerticalAlignment="Top" />
+                <TextBox Text="{Binding CourseName}"
+                         Background="White"
+                         Foreground="Black"
+                         BorderBrush="White"
+                         Margin="0,12"
+                         VerticalAlignment="Top" />
+                <TextBox Text="{Binding CourseName}"
+                         Background="White"
+                         Foreground="Black"
+                         BorderBrush="White"
+                         Margin="0,12"
+                         VerticalAlignment="Top" />
+            </StackPanel>
 
-            <!-- Grades Table -->
+            <!-- You can add additional columns for grades or other content -->
             <DataGrid ItemsSource="{Binding Grades}"
                       AutoGenerateColumns="False"
                       Background="#1B263B"

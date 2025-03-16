@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
-    class GradeEntry
+    public class GradeEntry
     {
         public string CourseName { get; set; }
         public string Grade { get; set; }
