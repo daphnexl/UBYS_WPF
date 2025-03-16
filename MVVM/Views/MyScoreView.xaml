@@ -3,12 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:UBYS_WPF.MVVM.Views"
+             xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
 
-    <Grid Background="#0D1B2A">
+    <!-- Bind ViewModel -->
+    <UserControl.DataContext>
+        <vm:MyScoreVM/>
+    </UserControl.DataContext>
+    
+    <Grid Background="#0D1B2A"
+          Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -19,36 +25,48 @@
                    FontSize="24"
                    FontWeight="Bold"
                    Foreground="White"
+                   HorizontalAlignment="Center"
                    Margin="10"
                    Grid.Row="0" />
 
-        <!-- DataGrid for grades -->
-        <DataGrid ItemsSource="{Binding Grades}"
-                  Grid.Row="1"
-                  AutoGenerateColumns="False"
-                  Background="#1B263B"
-                  Foreground="White"
-                  RowBackground="#415A77"
-                  AlternatingRowBackground="#778DA9"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  IsReadOnly="True"
-                  Margin="10">
+        <!-- Grade Table -->
+        <Grid Grid.Row="1"
+              Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <!-- Class Names -->
+                <ColumnDefinition Width="3*" />
+                <!-- Grades -->
+            </Grid.ColumnDefinitions>
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Course"
-                                    Binding="{Binding CourseName}"
-                                    Width="*" />
-                <DataGridTextColumn Header="Grade"
-                                    Binding="{Binding Grade}"
-                                    Width="Auto" />
-                <DataGridTextColumn Header="Teacher"
-                                    Binding="{Binding TeacherName}"
-                                    Width="*" />
-                <DataGridTextColumn Header="Date"
-                                    Binding="{Binding DateReceived}"
-                                    Width="Auto" />
-            </DataGrid.Columns>
-        </DataGrid>
+            <!-- Class List -->
+            <ListBox ItemsSource="{Binding Courses}"
+                     Background="#1B263B"
+                     Foreground="White"
+                     BorderBrush="White"
+                     Margin="5"
+                     Grid.Column="0" />
+
+            <!-- Grades Table -->
+            <DataGrid ItemsSource="{Binding Grades}"
+                      AutoGenerateColumns="False"
+                      Background="#1B263B"
+                      Foreground="White"
+                      BorderBrush="White"
+                      Grid.Column="1"
+                      Margin="5"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Midterm"
+                                        Binding="{Binding Midterm}"
+                                        Width="*" />
+                    <DataGridTextColumn Header="Final"
+                                        Binding="{Binding Final}"
+                                        Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

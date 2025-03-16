@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UBYS_WPF.MVVM.ViewModels;
 
 namespace UBYS_WPF.MVVM.Views
 {
@@ -23,6 +24,8 @@ namespace UBYS_WPF.MVVM.Views
         public MyScoreView()
         {
             InitializeComponent();
+            this.DataContext = new MyScoreViewModel();
         }
+
     }
 }
