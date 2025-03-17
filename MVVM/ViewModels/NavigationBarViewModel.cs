@@ -1,11 +1,5 @@
-﻿
-using Microsoft.Xaml.Behaviors.Core;
+﻿using Microsoft.Xaml.Behaviors.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using UBYS_WPF.Commands;
 using UBYS_WPF.MVVM.ViewModels;
@@ -31,13 +25,10 @@ namespace UBYS_WPF.MVVM.ViewModels
                 }
             }
         }
-
         public ICommand ToggleNavigationBarVisibleCommand { get; }
         #endregion
 
         #region NavigationBarMenuSelectedStore Properties
-        //NavigationBarMenuSelectedStore is a class that stores the selected navigation bar menu
-
         public bool IsHomeSelected
         {
             get => _navigationBarPropertiesStore.IsHomeSelected;
@@ -50,7 +41,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 }
             }
         }
-
         public bool IsMyScoreSelected
         {
             get => _navigationBarPropertiesStore.IsMyScoreSelected;
@@ -61,10 +51,8 @@ namespace UBYS_WPF.MVVM.ViewModels
                     _navigationBarPropertiesStore.IsMyScoreSelected = value;
                     OnPropertyChanged(nameof(IsMyScoreSelected));
                 }
-
             }
         }
-
         public bool IsCourseSelectionSelected
         {
             get => _navigationBarPropertiesStore.IsCourseSelectionSelected;
@@ -75,10 +63,8 @@ namespace UBYS_WPF.MVVM.ViewModels
                     _navigationBarPropertiesStore.IsCourseSelectionSelected = value;
                     OnPropertyChanged(nameof(IsCourseSelectionSelected));
                 }
-
             }
         }
-
         public bool IsExitSelected
         {
             get => _navigationBarPropertiesStore.IsExitSelected;
@@ -89,27 +75,20 @@ namespace UBYS_WPF.MVVM.ViewModels
                     _navigationBarPropertiesStore.IsExitSelected = value;
                     OnPropertyChanged(nameof(IsExitSelected));
                 }
-
             }
         }
-
-       
         #endregion
-
         #region Navigation Commands
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateExitCommand { get; }
         public ICommand NavigateCourseSelectionCommand { get; }
         public ICommand NavigateMyScoreCommand { get; }
-        
         #endregion
-
         public NavigationBarViewModel(NavigationBarPropertiesStore navigationBarPropertiesStore,
             INavigationService homeNavigationService,
             INavigationService exitNavigationService,
             INavigationService myscoreNavigationService,
             INavigationService courseselectionNavigationService)
-          
         {
             _navigationBarPropertiesStore = navigationBarPropertiesStore;
             _navigationBarPropertiesStore.NavigationBarVisibilityChanged += _navigationBarPropertiesStore_NavigationBarVisibilityChanged;
@@ -120,28 +99,22 @@ namespace UBYS_WPF.MVVM.ViewModels
             NavigateExitCommand = new NavigateCommand(exitNavigationService);
             NavigateCourseSelectionCommand = new NavigateCommand(courseselectionNavigationService);
             NavigateMyScoreCommand = new NavigateCommand(myscoreNavigationService);
-           
         }
-
         private void _navigationBarPropertiesStore_NavigationBarVisibilityChanged()
         {
             OnPropertyChanged(nameof(IsNavigationBarVisible));
         }
-
         private void NavigationBarPropertiesStore_SelectedNavigationBarMenuChanged()
         {
             OnPropertyChanged(nameof(IsHomeSelected));
             OnPropertyChanged(nameof(IsExitSelected));
             OnPropertyChanged(nameof(IsCourseSelectionSelected));
             OnPropertyChanged(nameof(IsMyScoreSelected));
-          
         }
-
         private void ToggleNavigationBarVisibility()
         {
             _navigationBarPropertiesStore.IsNavigationBarVisible = !_navigationBarPropertiesStore.IsNavigationBarVisible;
         }
-
         public override void Dispose()
         {
             _navigationBarPropertiesStore.SelectedNavigationBarMenuChanged -= NavigationBarPropertiesStore_SelectedNavigationBarMenuChanged;

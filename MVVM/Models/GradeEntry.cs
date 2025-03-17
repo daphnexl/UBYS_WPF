@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UBYS_WPF.MVVM.Models;
 
-namespace UBYS_WPF.MVVM.ViewModels
+namespace UBYS_WPF.MVVM.Models
 {
     public class GradeEntry
     {

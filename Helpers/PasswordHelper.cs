@@ -1,70 +1,66 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace UBYS_WPF.Helpers
 {
+    /// <summary>
+    /// PasswordBox için iki yönlü veri bağlama (Two-Way Binding) desteği .
+    /// </summary>
     public static class PasswordHelper
     {
+        /// <summary>
+        /// PasswordBox'ın şifre alanını bağlamak için kullanılan Attached Property.
+        /// </summary>
         public static readonly DependencyProperty BoundPassword =
-            DependencyProperty.RegisterAttached("BoundPassword",
+            DependencyProperty.RegisterAttached(
+                "BoundPassword",
                 typeof(string),
                 typeof(PasswordHelper),
-                new PropertyMetadata(string.Empty, OnBoundPasswordChanged));
+                new FrameworkPropertyMetadata(string.Empty,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    OnBoundPasswordChanged));
 
-        // Get the bound password value
-        public static string GetBoundPassword(DependencyObject obj)
-        {
-            return (string)obj.GetValue(BoundPassword);
-        }
+        // ********** Public API ********** //
 
-        // Set the bound password value
-        public static void SetBoundPassword(DependencyObject obj, string value)
-        {
+        public static string GetBoundPassword(DependencyObject obj) =>
+            (string)obj.GetValue(BoundPassword);
+
+        public static void SetBoundPassword(DependencyObject obj, string value) =>
             obj.SetValue(BoundPassword, value);
-        }
 
-        // Handle password change event and update the bound value
+        // ********** Private Methods ********** //
+
+        /// <summary>
+        /// BoundPassword değiştiğinde çağrılır, PasswordBox içeriğini günceller.
+        /// </summary>
         private static void OnBoundPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is PasswordBox passwordBox)
             {
-                passwordBox.PasswordChanged -= PasswordBox_PasswordChanged;
-                passwordBox.Password = (string)e.NewValue;
-                passwordBox.PasswordChanged += PasswordBox_PasswordChanged;
+                string newPassword = (string)e.NewValue;
+
+                // Mevcut şifre ile yeni şifre aynı değilse güncelle
+                if (passwordBox.Password != newPassword)
+                {
+                    passwordBox.PasswordChanged -= PasswordBox_PasswordChanged;
+                    passwordBox.Password = newPassword;
+                    passwordBox.PasswordChanged += PasswordBox_PasswordChanged;
+                }
             }
         }
 
-        // Update the bound password when the password in the box changes
+        /// <summary>
+        /// PasswordBox içindeki şifre değiştiğinde bağlanan nesneyi günceller.
+        /// </summary>
         private static void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (sender is PasswordBox passwordBox)
             {
                 SetBoundPassword(passwordBox, passwordBox.Password);
-            }
-        }
 
-        // Hash the password using SHA256
-        public static string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                foreach (byte b in bytes)
-                {
-                    builder.Append(b.ToString("x2"));
-                }
-                return builder.ToString();
+                // Binding'i manuel olarak güncelle
+                passwordBox.GetBindingExpression(BoundPassword)?.UpdateSource();
             }
-        }
-
-        // Verify the password by comparing hashes
-        public static bool VerifyPassword(string inputPassword, string storedHash)
-        {
-            return HashPassword(inputPassword) == storedHash;
         }
     }
 }

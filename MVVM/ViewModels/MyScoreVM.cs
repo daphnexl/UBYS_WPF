@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using UBYS_WPF.MVVM.Models;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
@@ -16,7 +17,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 new GradeEntry { CourseName = "Algorithm", Grade = "B", TeacherName = "Prof. BBB", DateReceived = DateTime.Now.ToShortDateString() }
             };
         }
-
         public void AddGrade(string course, string grade, string teacher)
         {
             Grades.Add(new GradeEntry { CourseName = course, Grade = grade, TeacherName = teacher, DateReceived = DateTime.Now.ToShortDateString() });

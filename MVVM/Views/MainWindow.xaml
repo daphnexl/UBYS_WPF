@@ -14,7 +14,6 @@
         Width="800"
         WindowStartupLocation="CenterScreen"
         Background="#1E1E2F">
-
     <Grid>
         <!-- Header -->
         <Border Background="#2C2C3A"
@@ -27,13 +26,11 @@
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center" />
         </Border>
-
         <!-- Login Form -->
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Width="416"
                     Margin="0,151,0,0">
-
             <!-- Username Input -->
             <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
                      Width="322"
@@ -52,7 +49,6 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
-
             <!-- Password Input -->
             <Grid Height="45"
                   Width="416">
@@ -74,7 +70,6 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
-
                 <PasswordBox x:Name="HiddenPasswordBox"
                              helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
                              Foreground="White"
@@ -95,7 +90,6 @@
                            Height="20" />
                 </Button>
             </Grid>
-
             <!-- Forgot Password -->
             <Button Content="Forgot your password?"
                     Background="Transparent"
@@ -115,7 +109,6 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-
             <!-- Login Button -->
             <Button Content="Log In"
                     Width="300"
@@ -128,7 +121,6 @@
                     Cursor="Hand"
                     Margin="0,17,0,0" />
         </StackPanel>
-
         <Image Margin="368,96,368,274"
                Source="/Assets/User2.ico"
                Stretch="Fill" />

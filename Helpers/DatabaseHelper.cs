@@ -19,7 +19,6 @@ namespace UBYS_WPF
     {
         private static User _loggedInUser = null;
         private static string connectionString = "Data Source=UBYS.db;Version=3;";
-
         public static void CreateDatabase()
         {
             string dbPath = "UBYS.db";
@@ -47,7 +46,6 @@ namespace UBYS_WPF
                 Console.WriteLine("Database created successfully.");
             }
         }
-
         public static string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -56,7 +54,6 @@ namespace UBYS_WPF
                 return Convert.ToBase64String(bytes);
             }
         }
-
         public static void SeedUsers()
         {
             using (SQLiteConnection con = new SQLiteConnection(connectionString))
@@ -73,7 +70,6 @@ namespace UBYS_WPF
                             ('Admin User', 'admin@example.com', '1234567890', @adminPass, 'Admin', '1980-01-01'),
                             ('Teacher One', 'teacher1@example.com', '1234567891', @teacher1Pass, 'Teacher', '1985-05-15'),
                             ('Student One', 'student1@example.com', '1234567892', @student1Pass, 'Student', '2000-09-20')";
-
                         using (SQLiteCommand insertCmd = new SQLiteCommand(insertQuery, con))
                         {
                             insertCmd.Parameters.AddWithValue("@adminPass", HashPassword("adminPass123"));
@@ -90,11 +86,9 @@ namespace UBYS_WPF
                 }
             }
         }
-
         public static User GetLoggedInUser() => _loggedInUser;
         public static void SetLoggedInUser(User user) => _loggedInUser = user;
         public static void LogoutUser() => _loggedInUser = null;
-
         public static User GetUserByFullName(string fullName)
         {
             using (var connection = new SQLiteConnection(connectionString))

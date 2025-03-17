@@ -15,44 +15,33 @@ namespace UBYS_WPF.MVVM.ViewModels
 {
     public class MainVM : ViewModelBase
     {
-        
-
-    
-   
         private readonly NavigationStore _navigationStore;
-        public ViewModelBase _currentViewModel => _navigationStore.CurrentViewModel;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
         private void OnCurrentViewModelChanged()
         {
-            OnPropertyChanged(nameof(_currentViewModel));
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
-        public string Role { get; set; } // Kullanıcı tipini saklamak için
+        public string Role { get; set; }
         private string _username;
         private string _password;
-
-
         private Brush _usernameTextColor;
         private Brush _passwordTextColor;
-
         private readonly string _defaultText = "ID Number: XXXXXXXXXXX";
         private readonly string _defaultTextPassword = "Password: ";
         private string _toggleButtonIcon = "/Assets/Invisible.png";
-
         private bool _isPasswordVisible;
-
+        private string _errorMessage;
         public ICommand PasswordGotFocusCommand { get; }
         public ICommand PasswordLostFocusCommand { get; }
         public ICommand UsernameGotFocusCommand { get; }
         public ICommand UsernameLostFocusCommand { get; }
         public ICommand ForgotPasswordCommand { get; }
         public ICommand TogglePasswordCommand { get; }
-
-
         public ICommand LoginCommand { get; }
 
-
-        public Visibility PasswordBoxVisibility => IsPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
-        public Visibility TextBoxVisibility => IsPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
-
+        public Visibility PasswordBoxVisibility => _isPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility TextBoxVisibility => _isPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
         public string Username
         {
             get => _username;
@@ -71,63 +60,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(UsernameTextColor));
             }
         }
-
-        public MainVM(NavigationStore navigationStore, INavigationService navigationService)
-        {
-            _navigationStore = navigationStore;
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-            // Username
-            _username = Username = _defaultText;
-            _usernameTextColor = UsernameTextColor = Brushes.Gray;
-
-            UsernameGotFocusCommand = new RelayCommand(_ => OnUsernameFocus());
-            UsernameLostFocusCommand = new RelayCommand(_ => OnUsernameLostFocus());
-
-            // Password
-            _password = Password = _defaultTextPassword;
-            _passwordTextColor = PasswordTextColor = Brushes.Gray;
-
-            PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
-            PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
-            TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
-            ForgotPasswordCommand = new RelayCommand(_ => ShowForgotPasswordMessage());
-
-            LoginCommand = new Commands.LoginCommand(this, navigationService);
-
-        }
-
-
-
-
-        public void ShowForgotPasswordMessage()
-        {
-            MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
-                            "Bilgilendirme",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-        }
-
-        public void OnUsernameFocus()
-        {
-            if (Username == _defaultText)
-            {
-                Username = "";
-                UsernameTextColor = Brushes.White;
-            }
-        }
-
-
-
-
-        public void OnUsernameLostFocus()
-        {
-            if (string.IsNullOrWhiteSpace(Username))
-            {
-                Username = _defaultText;
-                UsernameTextColor = Brushes.Gray;
-            }
-        }
-
         public string Password
         {
             get => _password;
@@ -137,7 +69,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(Password));
             }
         }
-
         public Brush PasswordTextColor
         {
             get => _passwordTextColor;
@@ -147,7 +78,68 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(PasswordTextColor));
             }
         }
+        public string ToggleButtonIcon
+        {
+            get => _toggleButtonIcon;
+            set
+            {
+                _toggleButtonIcon = value;
+                OnPropertyChanged(nameof(ToggleButtonIcon));
+            }
+        }
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+        public MainVM(NavigationStore navigationStore, INavigationService navigationService)
+        {
+            _navigationStore = navigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
+            Username = _defaultText;
+            UsernameTextColor = Brushes.Gray;
+
+            UsernameGotFocusCommand = new RelayCommand(_ => OnUsernameFocus());
+            UsernameLostFocusCommand = new RelayCommand(_ => OnUsernameLostFocus());
+
+            Password = _defaultTextPassword;
+            PasswordTextColor = Brushes.Gray;
+
+            PasswordGotFocusCommand = new RelayCommand(_ => OnPasswordFocus());
+            PasswordLostFocusCommand = new RelayCommand(_ => OnPasswordLostFocus());
+            TogglePasswordCommand = new RelayCommand(_ => TogglePasswordVisibility());
+            ForgotPasswordCommand = new RelayCommand(_ => ShowForgotPasswordMessage());
+
+            LoginCommand = new Commands.LoginCommand(this, navigationService);
+        }
+        public void ShowForgotPasswordMessage()
+        {
+            MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
+                            "Bilgilendirme",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+        }
+        public void OnUsernameFocus()
+        {
+            if (Username == _defaultText)
+            {
+                Username = "";
+                UsernameTextColor = Brushes.White;
+            }
+        }
+        public void OnUsernameLostFocus()
+        {
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                Username = _defaultText;
+                UsernameTextColor = Brushes.Gray;
+            }
+        }
         public void OnPasswordFocus()
         {
             if (Password == _defaultTextPassword)
@@ -156,7 +148,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 PasswordTextColor = Brushes.White;
             }
         }
-
         public void OnPasswordLostFocus()
         {
             if (string.IsNullOrWhiteSpace(Password))
@@ -165,8 +156,11 @@ namespace UBYS_WPF.MVVM.ViewModels
                 PasswordTextColor = Brushes.Gray;
             }
         }
-
-
+        private void TogglePasswordVisibility()
+        {
+            IsPasswordVisible = !IsPasswordVisible;
+            ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
+        }
         public bool IsPasswordVisible
         {
             get => _isPasswordVisible;
@@ -177,22 +171,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 OnPropertyChanged(nameof(PasswordBoxVisibility));
                 OnPropertyChanged(nameof(TextBoxVisibility));
             }
-        }
-
-        public string ToggleButtonIcon
-        {
-            get => _toggleButtonIcon;
-            set
-            {
-                _toggleButtonIcon = value;
-                OnPropertyChanged(nameof(ToggleButtonIcon));
-            }
-        }
-
-        private void TogglePasswordVisibility()
-        {
-            IsPasswordVisible = !IsPasswordVisible;
-            ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
         }
     }
 }

@@ -13,3 +13,4 @@ namespace UBYS_WPF.Services
         void Navigate();
     }
 }
+

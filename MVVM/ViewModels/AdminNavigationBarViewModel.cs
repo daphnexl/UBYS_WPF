@@ -119,7 +119,6 @@ namespace UBYS_WPF.MVVM.ViewModels
             INavigationService coursesfNavigationService,
             INavigationService teacherappointmentNavigationService,
             INavigationService addcourseNavigationService)
-
         {
             _navigationBarPropertiesStore = navigationBarPropertiesStore;
             _navigationBarPropertiesStore.NavigationBarVisibilityChanged += _navigationBarPropertiesStore_NavigationBarVisibilityChanged;
@@ -131,15 +130,11 @@ namespace UBYS_WPF.MVVM.ViewModels
             NavigateTeacherAppointmentCommand = new NavigateCommand(teacherappointmentNavigationService);
             NavigateAddCourseCommand = new NavigateCommand(addcourseNavigationService);
             NavigateCourseSFCommand = new NavigateCommand(coursesfNavigationService);
-
-
         }
-
         private void _navigationBarPropertiesStore_NavigationBarVisibilityChanged()
         {
             OnPropertyChanged(nameof(IsNavigationBarVisible));
         }
-
         private void NavigationBarPropertiesStore_SelectedNavigationBarMenuChanged()
         {
             OnPropertyChanged(nameof(IsHomeSelected));
@@ -149,12 +144,10 @@ namespace UBYS_WPF.MVVM.ViewModels
             OnPropertyChanged(nameof(IsAddCourseSelected));
 
         }
-
         private void ToggleNavigationBarVisibility()
         {
             _navigationBarPropertiesStore.IsNavigationBarVisible = !_navigationBarPropertiesStore.IsNavigationBarVisible;
         }
-
         public override void Dispose()
         {
             _navigationBarPropertiesStore.SelectedNavigationBarMenuChanged -= NavigationBarPropertiesStore_SelectedNavigationBarMenuChanged;
