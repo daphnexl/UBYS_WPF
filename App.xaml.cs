@@ -10,6 +10,7 @@ using UBYS_WPF.Services;
 using UBYS_WPF.Stores;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace UBYS_WPF
 {
@@ -25,28 +26,64 @@ namespace UBYS_WPF
             IServiceCollection services = new ServiceCollection();
 
             //Stores
-            services.AddSingleton<NavigationMonitorStore>();
+  
             services.AddSingleton<NavigationStore>();
             services.AddSingleton<NavigationBarPropertiesStore>();
-            services.AddTransient<NavigationBarViewModel>(CreateNavigationBarViewModel);
-            services.AddSingleton<HomeVM>(s => new HomeVM(CreateHomeNavigationService(s)));
-            services.AddSingleton<MyScoreVM>();
-            services.AddSingleton<CourseSelectionVM>();
-            services.AddSingleton<ExitVM>();
-            services.AddSingleton<SFCourseSelectionVM>();
-            services.AddSingleton<StudentsVM>();
-            services.AddSingleton<EditNoteVM>();
-            services.AddSingleton<AddCourseVM>();
-            services.AddSingleton<TeacherAppointmentVM>();
-            services.AddSingleton<TMyCoursesVM>();
+            services.AddSingleton<TeacherNavigationBarPropertiesStore>();
+            services.AddSingleton<AdminNavigationBarPropertiesStore>();
+
+           
 
             //Services
             services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
+            services.AddSingleton<TeacherNavigationBarPropertiesServices>(s => new TeacherNavigationBarPropertiesServices(s.GetRequiredService<TeacherNavigationBarPropertiesStore>()));
+            services.AddSingleton<AdminNavigationBarProServices>(s => new AdminNavigationBarProServices(s.GetRequiredService<AdminNavigationBarPropertiesStore>()));
+            services.AddSingleton<NavigationBarPropertiesServices>(s => new NavigationBarPropertiesServices(s.GetRequiredService<NavigationBarPropertiesStore>()));
+
+
+          
+
 
             //ViewModels
-            services.AddSingleton<MainVM>();
-            services.AddSingleton<LayoutViewModel>();
-            services.AddTransient<NavigationBarViewModel>(s => CreateNavigationBarViewModel(s));
+            services.AddSingleton<AdminNavigationBarViewModel>(s => new AdminNavigationBarViewModel(
+                s.GetRequiredService<AdminNavigationBarPropertiesStore>(),
+                s.GetRequiredService<AdminNavigationBarProServices>()));
+
+            services.AddSingleton<TeacherNavigationBarViewModel>(s => new TeacherNavigationBarViewModel(
+                s.GetRequiredService<TeacherNavigationBarPropertiesStore>(),
+                s.GetRequiredService<TeacherNavigationBarPropertiesServices>()));
+
+            services.AddTransient<NavigationBarViewModel>(s => new NavigationBarViewModel(
+                s.GetRequiredService<NavigationBarPropertiesStore>(),
+                s.GetRequiredService<NavigationBarPropertiesServices>()));
+
+            services.AddTransient<MainVM>(s => new MainVM(
+                 s.GetRequiredService<NavigationService>(),
+                 CreateNavigationService(s)));
+
+            services.AddTransient<HomeVM>(s => new HomeVM(
+               s.GetRequiredService<HomeStore>(),
+               CreateHomeNavigationService(s)));
+
+            services.AddTransient<ExitVM>(s => new ExitVM(
+               s.GetRequiredService<ExitStore>(),
+               CreateHomeNavigationService(s)));
+
+            services.AddTransient<MyScoreVM>(s => new MyScoreVM(
+               s.GetRequiredService<MyScoreStore>(),
+               CreateHomeNavigationService(s)));
+
+
+            services.AddTransient<CourseSelectionVM>(s => new CourseSelectionVM(
+               s.GetRequiredService<CourseSelectionStore>(),
+               CreateHomeNavigationService(s)));
+
+            services.AddTransient<SFCourseSelectionVM>(s => new SFCourseSelectionVM(
+               s.GetRequiredService<SFCourseSelectionStore>(),
+               CreateHomeNavigationService(s)));
+
+            
+
 
             //Windows
             services.AddSingleton<MainWindow>(s => new MainWindow()
@@ -67,33 +104,40 @@ namespace UBYS_WPF
 
             base.OnStartup(e);
         }
-        public class NavigationMonitorStore
-        {
-            // Store için temel özellikler ve metotlar burada olacak
-        }
-
         private INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
         {
-            return new LayoutNavigationService<MainVM>(
-                serviceProvider.GetRequiredService<NavigationMonitorStore>(),
+            return new NavigationService<HomeVM>(
                 serviceProvider.GetRequiredService<NavigationStore>(),
-                () => serviceProvider.GetRequiredService<NavigationBarViewModel>(),
-                serviceProvider.GetRequiredService<NavigationBarPropertiesStore>());
+                () => serviceProvider.GetRequiredService<HomeVM>());
         }
-        private NavigationBarViewModel CreateNavigationBarViewModel(IServiceProvider serviceProvider)
+
+        private INavigationService CreateExitNavigationService(IServiceProvider serviceProvider)
         {
-            return new NavigationBarViewModel(
-                serviceProvider.GetRequiredService<NavigationBarPropertiesStore>(),
-                CreateHomeNavigationService(serviceProvider),
-                CreateMyScoreNavigationService(serviceProvider),
-                CreateCourseSelectionNavigationService(serviceProvider),
-                CreateExitNavigationService(serviceProvider),
-                CreateAddCourseNavigationService(serviceProvider),
-                CreateTeacherAppointmentNavigationService(serviceProvider),
-                CreateSFCourseSelectionNavigationService(serviceProvider),
-                CreateEditNoteNavigationService(serviceProvider),
-                CreateStudentsNavigationService(serviceProvider),
-                CreateTMyCoursesNavigationService(serviceProvider));
+            return new NavigationService<ExitVM>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => serviceProvider.GetRequiredService<ExitVM>());
         }
+        private INavigationService CreateCourseSelectionNavigationService(IServiceProvider serviceProvider)
+        {
+            return new NavigationService<CourseSelectionVM>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => serviceProvider.GetRequiredService<CourseSelectionVM>());
+        }
+
+        private INavigationService CreateMyScoreNavigationService(IServiceProvider serviceProvider)
+        {
+            return new NavigationService<MyScoreVM>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => serviceProvider.GetRequiredService<MyScoreVM>());
+        }
+        private INavigationService CreateSFCourseSelectionNavigationService(IServiceProvider serviceProvider)
+        {
+            return new NavigationService<SFCourseSelectionVM>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                () => serviceProvider.GetRequiredService<SFCourseSelectionVM>());
+        }
+
+    
+
     }
 }
