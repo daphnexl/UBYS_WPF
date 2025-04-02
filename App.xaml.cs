@@ -19,6 +19,7 @@ namespace UBYS_WPF
     /// </summary>
     public partial class App : Application
     {
+       
         private readonly IServiceProvider _serviceProvider;
 
         public App()

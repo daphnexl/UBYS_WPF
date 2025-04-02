@@ -7,6 +7,7 @@ using UBYS_WPF.MVVM.ViewModels;
 using UBYS_WPF.MVVM.Views;
 using UBYS_WPF.Services;
 using UBYS_WPF.Commands;
+using UBYS_WPF.Components;
 
 namespace UBYS_WPF.Commands
 {
@@ -35,13 +36,13 @@ namespace UBYS_WPF.Commands
                 switch (user.Role)
                 {
                     case Role.Admin:
-                        targetView = new AdminView();
+                        targetView = new NavigationBarAdmin();
                         break;
                     case Role.Teacher:
-                        targetView = new TeacherView();
+                        targetView = new NavigationBarTeacher();
                         break;
                     case Role.Student:
-                        targetView = new StudentView();
+                        targetView = new NavigationBar();
                         break;
                 }
 

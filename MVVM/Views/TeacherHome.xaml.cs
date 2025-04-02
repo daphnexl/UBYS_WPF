@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UBYS_WPF.MVVM.ViewModels;
 
 namespace UBYS_WPF.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for AdminView.xaml
+    /// Interaction logic for TeacherHome.xaml
     /// </summary>
-    public partial class AdminView : UserControl
+    public partial class TeacherHome : UserControl
     {
-        public AdminView()
+        public TeacherHome()
         {
             InitializeComponent();
+            DataContext = new TeacherHomeViewModel();
         }
     }
 }

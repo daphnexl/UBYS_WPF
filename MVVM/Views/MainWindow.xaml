@@ -7,7 +7,6 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:helpers="clr-namespace:UBYS_WPF.Helpers"
         xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
-        d:DataContext="{d:DesignInstance Type=vm:MainVM}"
         mc:Ignorable="d"
         Title="Login"
         Height="450"
@@ -32,7 +31,7 @@
                     Width="416"
                     Margin="0,151,0,0">
             <!-- Username Input -->
-            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      Width="322"
                      Height="45"
                      Foreground="{Binding UsernameTextColor}"
@@ -71,7 +70,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
                 <PasswordBox x:Name="HiddenPasswordBox"
-                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
+                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                              Foreground="White"
                              Background="#2C2C3A"
                              BorderBrush="#4A4A5E"
@@ -121,7 +120,7 @@
                     Cursor="Hand"
                     Margin="0,17,0,0" />
         </StackPanel>
-        <Image Margin="368,96,368,274"
+        <Image Margin="340,100,340,270"
                Source="/Assets/User2.ico"
                Stretch="Fill" />
         <ContentControl Content="{Binding CurrentView}" />

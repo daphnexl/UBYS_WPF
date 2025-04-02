@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace UBYS_WPF.Components
 {
-    /// <summary>
-    /// Interaction logic for NavigationBarTeacher.xaml
-    /// </summary>
-    public partial class NavigationBarTeacher : UserControl
-    {
-        public NavigationBarTeacher()
+  
+        public partial class NavigationBarTeacher : UserControl
         {
-            InitializeComponent();
+            public NavigationBarTeacher()
+            {
+                InitializeComponent();
+            }
+
+
         }
     }
-}

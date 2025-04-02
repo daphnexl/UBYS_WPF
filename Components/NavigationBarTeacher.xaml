@@ -6,7 +6,7 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:DataContext="{d:DesignInstance Type=vm:NavigationBarViewModel}"
+             xmlns:DataContext="{d:DesignInstance Type=vm:TeacherNavigationBarViewModel}"
              d:DesignHeight="450"
              d:DesignWidth="800"
              Background="#7986CB"

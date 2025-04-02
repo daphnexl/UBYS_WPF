@@ -90,4 +90,8 @@
     <Resource Include="Assets\testIcon.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\Profiles\" />
+  </ItemGroup>
+
 </Project>
