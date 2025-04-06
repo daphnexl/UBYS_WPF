@@ -6,22 +6,8 @@ using System.Threading.Tasks;
 
 namespace UBYS_WPF.Stores
 {
-    public class NavigationBarPropertiesStore
+    public class NavigationBarPropertiesStore : BaseNavigationBarPropertiesStore, INavigationBarPropertiesStore
     {
-        #region NavigationBarMenuVisibility Property
-        private bool _isNavigationBarVisible;
-        public bool IsNavigationBarVisible
-        {
-            get => _isNavigationBarVisible;
-            set
-            {
-                _isNavigationBarVisible = value;
-                NavigationBarVisibilityChanged?.Invoke();
-            }
-        }
-        #endregion
-
-        #region NavigationBarMenuSelected Properties
         private bool _isHomeSelected;
         public bool IsHomeSelected
         {
@@ -29,7 +15,7 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isHomeSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
@@ -40,7 +26,7 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isMyScoreSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
@@ -51,7 +37,7 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isCourseSelectionSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
@@ -62,29 +48,20 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isExitSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
-    
-        #endregion
-
-        #region Actions
-        public event Action SelectedNavigationBarMenuChanged;
-        public event Action NavigationBarVisibilityChanged;
-        #endregion
-
-        #region Constructor
         public NavigationBarPropertiesStore()
         {
-            // Varsayılan başlangıç değerleri
-            _isNavigationBarVisible = false;
-            _isHomeSelected = true;
-            _isMyScoreSelected = false;
-            _isExitSelected = false;
-            _isCourseSelectionSelected = false;
-          
+            IsNavigationBarVisible = false;
+            IsHomeSelected = true;
+            IsMyScoreSelected = false;
+            IsCourseSelectionSelected = false;
+            IsExitSelected = false;
         }
-        #endregion
+
+        // INavigationBarPropertiesStore implementasyonu
+        public bool IsNavigationBarVisible { get; set; }
     }
 }

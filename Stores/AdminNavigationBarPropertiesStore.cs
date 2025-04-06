@@ -6,22 +6,9 @@ using System.Threading.Tasks;
 
 namespace UBYS_WPF.Stores
 {
-    public class AdminNavigationBarPropertiesStore
-    {
-        #region NavigationBarMenuVisibility Property
-        private bool _isNavigationBarVisible;
-        public bool IsNavigationBarVisible
-        {
-            get => _isNavigationBarVisible;
-            set
-            {
-                _isNavigationBarVisible = value;
-                NavigationBarVisibilityChanged?.Invoke();
-            }
-        }
-        #endregion
 
-        #region NavigationBarMenuSelected Properties
+    public class AdminNavigationBarPropertiesStore : BaseNavigationBarPropertiesStore, INavigationBarPropertiesStore
+    {
         private bool _isHomeSelected;
         public bool IsHomeSelected
         {
@@ -29,7 +16,7 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isHomeSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
@@ -40,7 +27,7 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isAddCourseSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
@@ -51,9 +38,10 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isTeacherAppointmentSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
+
         private bool _isCourseSFSelected;
         public bool IsCourseSFSelected
         {
@@ -61,7 +49,7 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isCourseSFSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
@@ -72,30 +60,22 @@ namespace UBYS_WPF.Stores
             set
             {
                 _isExitSelected = value;
-                SelectedNavigationBarMenuChanged?.Invoke();
+                OnSelectedMenuChanged();
             }
         }
 
-
-        #endregion
-
-        #region Actions
-        public event Action SelectedNavigationBarMenuChanged;
-        public event Action NavigationBarVisibilityChanged;
-        #endregion
-
-        #region Constructor
         public AdminNavigationBarPropertiesStore()
         {
-            // Varsayılan başlangıç değerleri
-            _isNavigationBarVisible = false;
-            _isHomeSelected = true;
-            _isTeacherAppointmentSelected = false;
-            _isExitSelected = false;
-            _isCourseSFSelected = false;
-            _isAddCourseSelected = false;
-
+            IsNavigationBarVisible = false;
+            IsHomeSelected = true;
+            IsAddCourseSelected = false;
+            IsTeacherAppointmentSelected = false;
+            IsCourseSFSelected = false;
+            IsExitSelected = false;
         }
-        #endregion
+
+        // INavigationBarPropertiesStore implementasyonu
+        public bool IsNavigationBarVisible { get; set; }
     }
+
 }

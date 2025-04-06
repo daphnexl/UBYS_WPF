@@ -14,10 +14,19 @@ namespace UBYS_WPF.Services
 
         public void Navigate()
         {
-            foreach (INavigationService navigationService in _navigationServices)
+            foreach (var navigationService in _navigationServices)
             {
-                navigationService.Navigate();
+                try
+                {
+                    navigationService.Navigate();
+                }
+                catch (Exception ex)
+                {
+                    // Hata yönetimi (loglama veya özel işleme)
+                    Console.WriteLine($"Error navigating: {ex.Message}");
+                }
             }
         }
     }
+
 }

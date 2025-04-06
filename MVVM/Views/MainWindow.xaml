@@ -70,6 +70,10 @@
                     </i:Interaction.Triggers>
                 </TextBox>
                 <PasswordBox x:Name="HiddenPasswordBox"
+                             
+                             
+                             
+                             
                              helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                              Foreground="White"
                              Background="#2C2C3A"
@@ -121,7 +125,7 @@
                     Margin="0,17,0,0" />
         </StackPanel>
         <Image Margin="340,100,340,270"
-               Source="/Assets/User2.ico"
+               Source="{Binding Path=/Assets/loginuser.png}"
                Stretch="Fill" />
         <ContentControl Content="{Binding CurrentView}" />
     </Grid>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows;
 using System.Windows.Input;
 using UBYS_WPF.Services;
@@ -8,14 +7,13 @@ using UBYS_WPF.Commands;
 using UBYS_WPF.Helpers;
 using UBYS_WPF.MVVM.Models;
 
-
 namespace UBYS_WPF.MVVM.ViewModels
 {
     public class MainVM : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
-        private readonly INavigationService _navigationService;
-        private readonly AdminNavigationBarPropertiesStore _adminPropertiesStore;
+        private readonly AuthService _authService;
+        private readonly NavigationService<ViewModelBase> _navigationService;
 
         private string _email;
         private string _password;
@@ -28,6 +26,7 @@ namespace UBYS_WPF.MVVM.ViewModels
 
         private readonly string _defaultText = "ID Number: XXXXXXXXXXX";
         private readonly string _defaultTextPassword = "Password: ";
+
 
         public string Email
         {
@@ -55,6 +54,7 @@ namespace UBYS_WPF.MVVM.ViewModels
         public ICommand UsernameGotFocusCommand { get; }
         public ICommand UsernameLostFocusCommand { get; }
         public ICommand ForgotPasswordCommand { get; }
+
         public ICommand TogglePasswordCommand { get; }
 
         public string Username
@@ -97,16 +97,6 @@ namespace UBYS_WPF.MVVM.ViewModels
             }
         }
 
-        public string ErrorMessage
-        {
-            get => _errorMessage;
-            set
-            {
-                _errorMessage = value;
-                OnPropertyChanged(nameof(ErrorMessage));
-            }
-        }
-
         public bool IsPasswordVisible
         {
             get => _isPasswordVisible;
@@ -122,11 +112,11 @@ namespace UBYS_WPF.MVVM.ViewModels
         public Visibility PasswordBoxVisibility => _isPasswordVisible ? Visibility.Visible : Visibility.Collapsed;
         public Visibility TextBoxVisibility => _isPasswordVisible ? Visibility.Collapsed : Visibility.Visible;
 
-        public MainVM(NavigationStore navigationStore, INavigationService navigationService)
+        public MainVM(NavigationStore navigationStore, AuthService authService, NavigationService<ViewModelBase> navigationService)
         {
             _navigationStore = navigationStore;
+            _authService = authService;
             _navigationService = navigationService;
-            _adminPropertiesStore = new AdminNavigationBarPropertiesStore();
 
             Username = _defaultText;
             UsernameTextColor = Brushes.Gray;
@@ -145,11 +135,11 @@ namespace UBYS_WPF.MVVM.ViewModels
 
         public void Login()
         {
-            var user = DatabaseHelper.GetUserByEmail(Email);
+            var user = _authService.AuthenticateUser(Email, Password);
 
-            if (user != null && VerifyPassword(Password, user.PasswordHash))
+            if (user != null)
             {
-                OpenViewForRole(user.Role);
+                _navigationService.NavigateToRoleBasedView(user);
             }
             else
             {
@@ -157,42 +147,10 @@ namespace UBYS_WPF.MVVM.ViewModels
             }
         }
 
-        private bool VerifyPassword(string inputPassword, string storedHash)
+        private void TogglePasswordVisibility()
         {
-            return DatabaseHelper.HashPassword(inputPassword) == storedHash;
-        }
-
-        private void OpenViewForRole(Role role)
-        {
-            switch (role)
-            {
-                case Role.Admin:
-                    _navigationStore.CurrentViewModel = new AdminNavigationBarViewModel(
-                        _adminPropertiesStore,
-                        new HomeNavigationService(_navigationStore),
-                        new ExitNavigationService(),
-                        new CourseSFNavigationService(_navigationStore),
-                        new TeacherAppointmentNavigationService(_navigationStore),
-                        new AddCourseNavigationService(_navigationStore)
-                    );
-                    break;
-                case Role.Teacher:
-                    _navigationStore.CurrentViewModel = new TeacherNavigationBarViewModel();
-                    break;
-                case Role.Student:
-                    _navigationStore.CurrentViewModel = new NavigationBarViewModel(
-     new NavigationBarPropertiesStore(),                      // navigationBarPropertiesStore
-     new HomeNavigationService(_navigationStore),             // homeNavigationService
-     new ExitNavigationService(),                             // exitNavigationService
-     new MyScoreNavigationService(_navigationStore),          // myscoreNavigationService
-     new CourseSelectionNavigationService(_navigationStore)   // courseselectionNavigationService
- );
-
-                    break;
-                default:
-                    MessageBox.Show("KAYITLI DEĞİLSİNİZ!", "HATA", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-            }
+            IsPasswordVisible = !IsPasswordVisible;
+            ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
         }
 
         public void ShowForgotPasswordMessage()
@@ -237,12 +195,6 @@ namespace UBYS_WPF.MVVM.ViewModels
                 Password = _defaultTextPassword;
                 PasswordTextColor = Brushes.Gray;
             }
-        }
-
-        private void TogglePasswordVisibility()
-        {
-            IsPasswordVisible = !IsPasswordVisible;
-            ToggleButtonIcon = IsPasswordVisible ? "/Assets/Eye.png" : "/Assets/Invisible.png";
         }
     }
 }
