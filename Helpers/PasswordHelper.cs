@@ -13,7 +13,6 @@ namespace UBYS_WPF.Helpers
                 new PropertyMetadata(string.Empty, OnBoundPasswordChanged)
             );
 
-        // GET ve SET metodları EKLENMELİ
         public static string GetBoundPassword(DependencyObject obj)
             => (string)obj.GetValue(BoundPasswordProperty);
 
@@ -36,4 +35,5 @@ namespace UBYS_WPF.Helpers
                 SetBoundPassword(passwordBox, passwordBox.Password);
         }
     }
+
 }

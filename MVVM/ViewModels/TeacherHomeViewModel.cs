@@ -43,17 +43,13 @@ namespace UBYS_WPF.MVVM.ViewModels
 
         public TeacherHomeViewModel()
         {
-            _databaseHelper = new DatabaseHelper(); // DatabaseHelper örneğini oluşturun
+            CurrentUser = DatabaseHelper.GetUserByFullName("Teacher One");
 
-            // Veritabanından kullanıcı çekme (örneğin, ID'ye göre)
-            CurrentUser = _databaseHelper.GetUserByFullName("Teacher One"); // ID'si 1 olan kullanıcıyı çek
-            // Veya giriş yapan kullanıcının emailine göre çek
-            // CurrentUser = _databaseHelper.GetUserByEmail("kullanici@example.com");
 
-            if (CurrentUser == null)
+            if (CurrentUser==null)
             {
                 // Eğer kullanıcı bulunamazsa, varsayılan bir kullanıcı oluşturabilirsiniz
-                CurrentUser = new User(1, "Varsayılan Kullanıcı", "default@example.com", "123-456-7890", "password", Role.Student, DateTime.Now);
+                CurrentUser = new User(1, "Varsayılan Kullanıcı", "default@example.com", "123-456-7890", "password",Models.Role.Student, DateTime.Now);
             }
 
             LoadUserProfileImage();

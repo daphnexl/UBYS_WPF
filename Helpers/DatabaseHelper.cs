@@ -6,7 +6,7 @@ using UBYS_WPF.MVVM.Models;
 
 namespace UBYS_WPF.Services
 {
-    public static class DatabaseHelper
+    public class DatabaseHelper
     {
         private static string connectionString = "Data Source=your_database.db;Version=3;";
 

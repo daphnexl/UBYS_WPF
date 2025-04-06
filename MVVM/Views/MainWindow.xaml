@@ -70,11 +70,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
                 <PasswordBox x:Name="HiddenPasswordBox"
-                             
-                             
-                             
-                             
-                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             helpers:PasswordHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Foreground="White"
                              Background="#2C2C3A"
                              BorderBrush="#4A4A5E"
@@ -82,6 +78,7 @@
                              Padding="10"
                              Width="322"
                              Visibility="{Binding PasswordBoxVisibility}" />
+                <!--Loaded="PasswordBox_Loaded"--> 
 
                 <!-- Toggle Password Visibility -->
                 <Button Command="{Binding TogglePasswordCommand}"

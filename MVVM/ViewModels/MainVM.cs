@@ -43,8 +43,11 @@ namespace UBYS_WPF.MVVM.ViewModels
             get => _password;
             set
             {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
+                if (_password != value)
+                {
+                    _password = value;
+                    OnPropertyChanged(nameof(Password));
+                }
             }
         }
 
