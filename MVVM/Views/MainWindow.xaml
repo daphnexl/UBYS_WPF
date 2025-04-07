@@ -8,6 +8,7 @@
         xmlns:helpers="clr-namespace:UBYS_WPF.Helpers"
         xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
         mc:Ignorable="d"
+        DataContext="{d:DesignInstance Type=vm:MainVM}"
         Title="Login"
         Height="450"
         Width="800"
@@ -29,7 +30,8 @@
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Center"
                     Width="416"
-                    Margin="0,151,0,0">
+                    Margin="0,169,0,0"
+                    Height="181">
             <!-- Username Input -->
             <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                      Width="322"
@@ -78,7 +80,7 @@
                              Padding="10"
                              Width="322"
                              Visibility="{Binding PasswordBoxVisibility}" />
-                <!--Loaded="PasswordBox_Loaded"--> 
+                <!--Loaded="PasswordBox_Loaded"-->
 
                 <!-- Toggle Password Visibility -->
                 <Button Command="{Binding TogglePasswordCommand}"
@@ -121,9 +123,14 @@
                     Cursor="Hand"
                     Margin="0,17,0,0" />
         </StackPanel>
-        <Image Margin="340,100,340,270"
-               Source="{Binding Path=/Assets/loginuser.png}"
+        <Image Margin="351,80,351,270"
+               Source="/Assets/loginuser.png"
                Stretch="Fill" />
-        <ContentControl Content="{Binding CurrentView}" />
+        <ContentControl RenderTransformOrigin="0.5,0.563"
+                        Margin="0,169,0,22">
+            <Image Margin="362,76,362,286"
+                   Source="/loginuser.png"
+                   Stretch="Fill" />
+        </ContentControl>
     </Grid>
 </Window>

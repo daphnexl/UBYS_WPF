@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
-    class CourseSelectionVM
+   public class CourseSelectionVM : ViewModelBase
     {
     }
 }

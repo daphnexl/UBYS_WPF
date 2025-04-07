@@ -5,11 +5,11 @@ using UBYS_WPF.MVVM.Models;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
-    public class MyScoreViewModel : INotifyPropertyChanged
+    public class MyScoreVM : ViewModelBase
     {
         public ObservableCollection<GradeEntry> Grades { get; set; }
 
-        public MyScoreViewModel()
+        public MyScoreVM()
         {
             Grades = new ObservableCollection<GradeEntry>
             {

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
-    class ExitVM
+    public class ExitVM : ViewModelBase
     {
+      
     }
+
 }

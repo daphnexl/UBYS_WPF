@@ -24,7 +24,7 @@ namespace UBYS_WPF.MVVM.Views
         public MyScoreView()
         {
             InitializeComponent();
-            this.DataContext = new MyScoreViewModel();
+            this.DataContext = new MyScoreVM();
         }
 
     }
