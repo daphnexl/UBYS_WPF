@@ -8,7 +8,6 @@
         xmlns:helpers="clr-namespace:UBYS_WPF.Helpers"
         xmlns:vm="clr-namespace:UBYS_WPF.MVVM.ViewModels"
         mc:Ignorable="d"
-        DataContext="{d:DesignInstance Type=vm:MainVM}"
         Title="Login"
         Height="450"
         Width="800"
