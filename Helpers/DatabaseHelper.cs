@@ -1,30 +1,67 @@
 ﻿using System;
+using System.Data;
+using System.Data.Entity;
 using System.Data.SQLite;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows;
 using UBYS_WPF.MVVM.Models;
 
 namespace UBYS_WPF.Services
 {
     public class DatabaseHelper
     {
-        private static string connectionString = "Data Source=your_database.db;Version=3;";
+        private static readonly string connectionString = $"Data Source={System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ubys.db")};Version=3;";
+        private static  readonly SQLiteConnection _database = new SQLiteConnection(connectionString);
+        public static void Initialize()
+        {
+            if (!File.Exists(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ubys.db")))
+            {
+                SQLiteConnection.CreateFile(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ubys.db"));
+            }
+            _database.Open();
+        }
+        public static void Shutdown()
+        {
+            if (_database != null && _database.State == ConnectionState.Open)
+            {
+                _database.Close();
+                _database.Dispose();
+            }
+        }
+        public static SQLiteConnection GetConnection()
+        {
+            return _database;
+        }
 
         // Kullanıcı ekleme
-        public static void CreateUser(string fullName, string email, string password, string role)
+        public static void CreateUser(string fullName, string email, string phone, string imagepath, string password, string role, DateTime birthdate)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            try
             {
-                connection.Open();
-                string query = "INSERT INTO Users (FullName, Email, PasswordHash, Role) VALUES (@FullName, @Email, @PasswordHash, @Role)";
-                using (var command = new SQLiteCommand(query, connection))
+
+                using (var connection = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@FullName", fullName);
-                    command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@PasswordHash", HashPassword(password));
-                    command.Parameters.AddWithValue("@Role", role);
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    string query = "INSERT INTO Users (FullName, Email,Phone,ImagePath, PasswordHash, Role,BirthDate) VALUES (@FullName, @Email, @Phone,@ImagePath, @PasswordHash, @Role, @BirthDate)";
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@FullName", fullName);
+                        command.Parameters.AddWithValue("@Email", email);
+                        command.Parameters.AddWithValue("@Phone", phone);
+                        command.Parameters.AddWithValue("@ImagePath", imagepath);
+                        command.Parameters.AddWithValue("@PasswordHash", HashPassword(password));
+                        command.Parameters.AddWithValue("@Role", role);
+                        command.Parameters.AddWithValue("@BirthDate", birthdate);
+                        command.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("HATA OLUŞTU:" + ex.Message);
+                System.Windows.MessageBox.Show("Kullanıcı eklenirken bir hata oluştu.\nDetay: " + ex.Message, "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -47,7 +84,8 @@ namespace UBYS_WPF.Services
                                 reader.GetString(1),                     // FullName
                                 reader.GetString(2),                     // Email
                                 reader.GetString(3),                     // Phone
-                                reader.GetString(4),                     // PasswordHash
+                                reader.GetString(4),                     // P
+                                reader.GetString(5),                     // PasswordHash
                                 Enum.Parse<Role>(reader.GetString(5)),   // Role (Enum)
                                 reader.GetDateTime(6)                    // BirthDate
                             );
@@ -77,9 +115,10 @@ namespace UBYS_WPF.Services
                                 reader.GetString(1),                     // FullName
                                 reader.GetString(2),                     // Email
                                 reader.GetString(3),                     // Phone
-                                reader.GetString(4),                     // PasswordHash
-                                Enum.Parse<Role>(reader.GetString(5)),   // Role (Enum)
-                                reader.GetDateTime(6)                    // BirthDate
+                                reader.GetString(4),                     // ImagePath
+                                reader.GetString(5),                     // PasswordHash
+                                Enum.Parse<Role>(reader.GetString(6)),   // Role (Enum)
+                                reader.GetDateTime(7)                    // BirthDate
                             );
                         }
                     }
@@ -107,9 +146,10 @@ namespace UBYS_WPF.Services
                                 reader.GetString(1),                     // FullName
                                 reader.GetString(2),                     // Email
                                 reader.GetString(3),                     // Phone
-                                reader.GetString(4),                     // PasswordHash
-                                Enum.Parse<Role>(reader.GetString(5)),   // Role (Enum)
-                                reader.GetDateTime(6)                    // BirthDate
+                                reader.GetString(4),                     // ImagePath
+                                reader.GetString(5),                     // PasswordHash
+                                Enum.Parse<Role>(reader.GetString(6)),   // Role (Enum)
+                                reader.GetDateTime(7)                    // BirthDate
                             );
                         }
                     }

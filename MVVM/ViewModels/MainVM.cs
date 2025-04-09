@@ -6,6 +6,8 @@ using UBYS_WPF.Stores;
 using UBYS_WPF.Commands;
 using UBYS_WPF.Helpers;
 using UBYS_WPF.MVVM.Models;
+using System.Drawing;
+
 
 namespace UBYS_WPF.MVVM.ViewModels
 {
@@ -20,8 +22,8 @@ namespace UBYS_WPF.MVVM.ViewModels
         private string _errorMessage;
         private string _toggleButtonIcon = "/Assets/Invisible.png";
         private bool _isPasswordVisible;
-        private Brush _usernameTextColor;
-        private Brush _passwordTextColor;
+        private System.Drawing.Brush _usernameTextColor;
+        private System.Drawing.Brush _passwordTextColor;
         private string _username;
 
         private readonly string _defaultText = "ID Number: XXXXXXXXXXX";
@@ -70,7 +72,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             }
         }
 
-        public Brush UsernameTextColor
+        public System.Drawing.Brush UsernameTextColor
         {
             get => _usernameTextColor;
             set
@@ -80,7 +82,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             }
         }
 
-        public Brush PasswordTextColor
+        public System.Drawing.Brush PasswordTextColor
         {
             get => _passwordTextColor;
             set
@@ -122,10 +124,10 @@ namespace UBYS_WPF.MVVM.ViewModels
             _navigationService = navigationService;
 
             Username = _defaultText;
-            UsernameTextColor = Brushes.Gray;
+            UsernameTextColor = System.Drawing.Brushes.Gray;
 
             Password = _defaultTextPassword;
-            PasswordTextColor = Brushes.Gray;
+            PasswordTextColor = System.Drawing.Brushes.Gray;
 
             UsernameGotFocusCommand = new RelayCommand(_ => OnUsernameFocus());
             UsernameLostFocusCommand = new RelayCommand(_ => OnUsernameLostFocus());
@@ -142,11 +144,13 @@ namespace UBYS_WPF.MVVM.ViewModels
 
             if (user != null)
             {
+                string imageFileName = $"{user.FullName.ToLower().Replace(" ", "_")}.jpg"; // Örn: ahmet_yılmaz.jpg
+                user.ImagePath = $"pack://application:,,,/Images/{imageFileName}";
                 _navigationService.NavigateToRoleBasedView(user);
             }
             else
             {
-                MessageBox.Show("Giriş bilgileri hatalı!", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Giriş bilgileri hatalı!", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -158,7 +162,7 @@ namespace UBYS_WPF.MVVM.ViewModels
 
         public void ShowForgotPasswordMessage()
         {
-            MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
+            System.Windows.MessageBox.Show("Şifreyi yenilemek için sistem yöneticisi ile iletişime geçin.",
                             "Bilgilendirme",
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
@@ -169,7 +173,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             if (Username == _defaultText)
             {
                 Username = "";
-                UsernameTextColor = Brushes.White;
+                UsernameTextColor = System.Drawing.Brushes.White;
             }
         }
 
@@ -178,7 +182,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             if (string.IsNullOrWhiteSpace(Username))
             {
                 Username = _defaultText;
-                UsernameTextColor = Brushes.Gray;
+                UsernameTextColor = System.Drawing.Brushes.Gray;
             }
         }
 
@@ -187,7 +191,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             if (Password == _defaultTextPassword)
             {
                 Password = "";
-                PasswordTextColor = Brushes.White;
+                PasswordTextColor = System.Drawing.Brushes.White;
             }
         }
 
@@ -196,7 +200,7 @@ namespace UBYS_WPF.MVVM.ViewModels
             if (string.IsNullOrWhiteSpace(Password))
             {
                 Password = _defaultTextPassword;
-                PasswordTextColor = Brushes.Gray;
+                PasswordTextColor = System.Drawing.Brushes.Gray;
             }
         }
     }

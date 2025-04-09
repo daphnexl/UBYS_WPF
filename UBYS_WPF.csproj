@@ -40,6 +40,13 @@
     <None Remove="Assets\testIcon.png" />
     <None Remove="MVVM\Views\Eye.png" />
     <None Remove="MVVM\Views\Invisible.png" />
+    <None Remove="ubys.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ubys.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +62,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="DevExpress.Data" Version="24.2.5" />
+    <PackageReference Include="devexpress.wpf.core" Version="24.1.7" />
     <PackageReference Include="linq2db.SQLite" Version="5.4.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.ObjectPool" Version="9.0.2" />

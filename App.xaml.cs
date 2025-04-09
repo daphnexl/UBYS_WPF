@@ -1,76 +1,100 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using UBYS_WPF.MVVM.Models;
+﻿
+using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using UBYS_WPF.MVVM.ViewModels;
+using UBYS_WPF.MVVM.Views;
+using UBYS_WPF.Services;
+using UBYS_WPF.Stores;
+using static UBYS_WPF.Stores.NavigationStore;
 
-namespace UBYS_WPF.MVVM.ViewModels
+namespace UBYS_WPF
 {
-    public class CourseSelectionViewModel : INotifyPropertyChanged
+    public partial class App : System.Windows.Application
+{
+    private readonly IServiceProvider _serviceProvider;
+
+    public App()
     {
-        private ObservableCollection<Course> _availableCourses;
-        public ObservableCollection<Course> AvailableCourses
-        {
-            get => _availableCourses;
-            set
+        IServiceCollection services = new ServiceCollection();
+
+        // Stores
+        services.AddSingleton<NavigationStore>();
+        services.AddSingleton<NavigationBarPropertiesStore>();
+        services.AddSingleton<TeacherNavigationBarPropertiesStore>();
+        services.AddSingleton<AdminNavigationBarPropertiesStore>();
+
+        // Services
+        services.AddSingleton<AuthService>();
+
+        // Navigation services
+        services.AddSingleton<NavigationService<HomeViewModel>>(s =>
+         new NavigationService<HomeViewModel>(
+             () => s.GetRequiredService<HomeViewModel>(),
+             vm => s.GetRequiredService<NavigationStore>().CurrentViewModel = vm
+         ));
+
+        services.AddSingleton<NavigationService<ExitVM>>(s =>
+         new NavigationService<ExitVM>(
+        () => s.GetRequiredService<ExitVM>(),
+        vm => s.GetRequiredService<NavigationStore>().CurrentViewModel = vm
+         ));
+
+        services.AddSingleton<NavigationService<MyScoreVM>>(s =>
+            new NavigationService<MyScoreVM>(
+                () => s.GetRequiredService<MyScoreVM>(),
+                vm => s.GetRequiredService<NavigationStore>().CurrentViewModel = vm
+            ));
+
+        services.AddSingleton<NavigationService<CourseSelectionVM>>(s =>
+            new NavigationService<CourseSelectionVM>(
+                () => s.GetRequiredService<CourseSelectionVM>(),
+                vm => s.GetRequiredService<NavigationStore>().CurrentViewModel = vm
+            ));
+        services.AddSingleton<NavigationService<SFCourseSelectionVM>>(s =>
+            new NavigationService<SFCourseSelectionVM>(
+                () => s.GetRequiredService<SFCourseSelectionVM>(),
+                vm => s.GetRequiredService<NavigationStore>().CurrentViewModel = vm
+            ));
+        // ViewModels
+        services.AddSingleton<MainVM>(s => new MainVM(
+            s.GetRequiredService<NavigationStore>(),
+            s.GetRequiredService<AuthService>(),
+            s.GetRequiredService<NavigationService<ViewModelBase>>()  // dikkat!
+        ));
+            services.AddTransient<HomeViewModel>(s =>
             {
-                _availableCourses = value;
-                OnPropertyChanged();
-            }
-        }
+                var authService = s.GetRequiredService<AuthService>();
 
-        private ObservableCollection<Course> _selectedCourses;
-        public ObservableCollection<Course> SelectedCourses
-        {
-            get => _selectedCourses;
-            set
-            {
-                _selectedCourses = value;
-                OnPropertyChanged();
-            }
-        }
+                // Geçici olarak örnek kullanıcıyı alıyoruz. Gerçekte bu, oturum açmış kullanıcı olacak.
+                var user = authService.AuthenticateUser("admin@example.com", "1234");
 
-        public ICommand ToggleCourseCommand { get; set; }
-        public ICommand RemoveCourseCommand { get; set; }
+                return new HomeViewModel(
+                    s.GetRequiredService<NavigationService<HomeViewModel>>(),
+                    user
+                );
+            });
 
-        public CourseSelectionViewModel()
-        {
-            AvailableCourses = new ObservableCollection<Course>();
-            SelectedCourses = new ObservableCollection<Course>();
+            // Windows
+            services.AddSingleton<MainWindow>(s => new MainWindow {
+            DataContext = s.GetRequiredService<MainVM>()
+        });
 
-            // Admin ya da öğretmen dinamik olarak değiştirebilir
-            AvailableCourses.Add(new Course { Name = "Matematik I" });
-            AvailableCourses.Add(new Course { Name = "Algoritma" });
-            AvailableCourses.Add(new Course { Name = "Fizik I" });
-
-            ToggleCourseCommand = new RelayCommand<Course>(ToggleCourse);
-            RemoveCourseCommand = new RelayCommand<Course>(RemoveCourse);
-        }
-
-        private void ToggleCourse(Course course)
-        {
-            if (course == null) return;
-
-            if (!SelectedCourses.Contains(course))
-                SelectedCourses.Add(course);
-        }
-
-        private void RemoveCourse(Course course)
-        {
-            if (course == null) return;
-
-            if (SelectedCourses.Contains(course))
-                SelectedCourses.Remove(course);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        _serviceProvider = services.BuildServiceProvider();
     }
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        var initialNavigationService = _serviceProvider.GetRequiredService<INavigationService>();
+        initialNavigationService.Navigate();
+        var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
+        base.OnStartup(e);
+        DatabaseHelper.Initialize();
+        }
+    private INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
+    {
+            return new NavigationService<HomeViewModel>(
+                () => serviceProvider.GetRequiredService<HomeViewModel>(), // HomeVM'i oluşturmak için Func<HomeVM>
+                vm => serviceProvider.GetRequiredService<NavigationStore>().CurrentViewModel = vm); // ViewModel'i navigasyona ayarlamak için Action<ViewModelBase>
+            }
+}
 }
