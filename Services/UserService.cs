@@ -1,4 +1,4 @@
-﻿using UBYS_WPF.MVVM.Models;  // User modelini kullanabilmek için gerekli using
+﻿using UBYS_WPF.MVVM.Models;  // User ve Role modelini kullanabilmek için gerekli
 using System;
 
 namespace UBYS_WPF.Services
@@ -22,10 +22,10 @@ namespace UBYS_WPF.Services
             return DatabaseHelper.HashPassword(inputPassword) == storedHash;
         }
 
-        // Kullanıcıyı Id ile al
+        // Kullanıcıyı ID ile al
         public User GetUserById(int id)
         {
             return DatabaseHelper.GetUserById(id);
-        } // DatabaseHelper sınıfını kullanarak veritabanından kullanıcı
+        }
     }
 }
